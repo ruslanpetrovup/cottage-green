@@ -41,3 +41,110 @@
         &:hover.header-item-link::after
             width: 100%
             height: 2px
+.header-sing
+    display: flex
+    gap: 10px
+    &-singin
+        appearance: none
+        background: transparent
+        border: 1px solid $green-color
+        padding: 10px 25px
+        transition: all 250ms linear
+        cursor: pointer
+        &:hover
+            background: $green-color
+            border: 1px solid transparent
+            color: white
+    &-register
+        appearance: none
+        padding: 10px 25px
+        background: $green-color
+        color: white
+        border: 1px solid transparent
+        transition: all 250ms linear
+        cursor: pointer
+        &:hover
+            background: transparent
+            color: $green-color
+            border: 1px solid $green-color
+
+.window-singin
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+    pointer-events: none
+    z-index: 2
+    display: flex
+    background: rgba(0, 0, 0, 0.5)
+    transition: all 250ms linear
+    &.active
+        opacity: 1
+        pointer-events: auto
+.window-input
+    position: relative
+    margin: auto
+    background: white
+    padding: 30px 40px
+.window-title
+    text-align: center
+    font-size: 22px
+    font-weight: 400
+    margin-bottom: 20px
+.window-form
+    display: flex
+    flex-direction: column
+    gap: 20px
+.window-form-email
+    appearance: none
+    background: none
+    border: 2px solid $silver-color
+    padding: 10px 5px 10px 20px
+    display: flex
+    align-items: center
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 300
+    &:focus
+        outline: none
+
+.window-form-password
+    appearance: none
+    background: none
+    border: 2px solid $silver-color
+    padding: 10px 5px 10px 20px
+    display: flex
+    align-items: center
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 300
+    &:focus
+        outline: none
+.window-form-submit
+    appearance: none
+    background: $green-color
+    color: white
+    border: 1px solid transparent
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 500
+    padding: 10px 10px
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        border: 1px solid $green-color
+        background: transparent
+        color: $green-color
+
+.window-close
+    appearance: none
+    border: none
+    background: none
+    position: absolute
+    top: 5px
+    right: 5px
+    cursor: pointer
+    &-icon
+        width: 30px
