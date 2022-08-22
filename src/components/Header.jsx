@@ -8,11 +8,16 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <div className="header-logo">
-            <img className="header-logo-img" src={logo} alt="logo" />
+            <a
+              className="header-logo-link"
+              href="https://cottage-green.vercel.app/"
+            >
+              <img className="header-logo-img" src={logo} alt="logo" />
 
-            <h1 className="header-logo-title">
-              Cottage<span className="header-logo-title-span">Green</span>
-            </h1>
+              <h1 className="header-logo-title">
+                Cottage<span className="header-logo-title-span">Green</span>
+              </h1>
+            </a>
           </div>
 
           <ul className="header-menu">

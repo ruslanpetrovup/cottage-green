@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -17,10 +18,10 @@ const Hero = () => {
               допомогу. Тут ви зможете возз'єднатися з природою. Бронюйте прямо
               зараз.
             </p>
-            <button className="hero-button">
+            <Link to="/rent" className="hero-button">
               <div className="hero-button-thoomb"></div>
               <p className="hero-button-text">Забронювати</p>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

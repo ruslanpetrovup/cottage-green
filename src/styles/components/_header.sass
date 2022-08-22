@@ -7,8 +7,9 @@
         align-items: center
         justify-content: space-between
 .header-logo
-    display: flex
-    align-items: center
+    &-link
+        display: flex
+        align-items: center
     &-img
         width: 40px
     &-title
@@ -23,6 +24,20 @@
     gap: 30px
 .header-item
     &-link
+        position: relative
         color: $green-color
         font-weight: 600
         cursor: pointer
+        padding-bottom: 2px
+        &::after
+            content: ''
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 0%
+            height: 2px
+            background: $green-color
+            transition: width 250ms linear
+        &:hover.header-item-link::after
+            width: 100%
+            height: 2px
