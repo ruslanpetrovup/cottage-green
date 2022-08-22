@@ -1,0 +1,88 @@
+.houses
+    background-image: url('../../images/back.jpg')
+    background-size: cover
+    background-repeat: no-repeat
+.houses-backdrop
+    background: rgba(0, 0, 0, 0.5)
+.houses-content
+    padding-top: 20px
+.houses-description
+    display: flex
+    justify-content: center
+    margin-bottom: 20px
+.houses-title
+    font-size: 52px
+    color: white
+    &-span
+        color: #8eff00
+    &-text
+        font-size: 16px
+        font-weight: 300
+        text-align: center
+.houses-list-block
+    display: flex
+    justify-content: center
+.houses-list
+    display: flex
+    gap: 70px
+    flex-direction: column
+.houses-item
+    display: flex
+    &:nth-child(even)
+        flex-direction: row-reverse
+    &-block
+        display: flex
+        flex-direction: column
+        width: 50%
+        background: white
+.houses-img
+    width: 50%
+.houses-item-title
+    text-align: center
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    padding: 10px
+    margin-bottom: 10px
+    background: #094909c7
+    color: white
+    font-size: 21px
+    font-weight: 300
+.houses-item-text-list
+    display: flex
+    gap: 30px
+    flex-wrap: wrap
+    justify-content: center
+    margin-bottom: 30px
+
+.houses-item-text
+    display: flex
+    align-items: center
+    font-size: 18px
+    &-icon
+        width: 18px
+.houses-item-des
+    font-size: 16px
+    font-weight: 300
+    padding: 19px 20px
+.houses-item-prise
+    margin-top: auto
+    font-size: 22px
+    font-weight: 600
+    color: $green-color
+    text-align: left
+    margin-left: 20px
+.houses-item-buy
+    appearance: none
+    background: none
+    padding: 10px
+    border: 1px solid #8eff00
+    font-size: 16px
+    font-weight: 500
+    color: $green-color
+    width: 100%
+    margin-top: 30px
+    transition: all 250ms linear
+    cursor: pointer
+    &:hover
+        border: 1px solid transparent
+        background: $green-color
+        color: white

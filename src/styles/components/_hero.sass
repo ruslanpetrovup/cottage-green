@@ -1,0 +1,71 @@
+.hero .container
+    max-width: unset
+    padding: unset
+.hero-content
+    background-image: url(../../images/hero.jpg)
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: top
+    height: 300px
+.hero-block
+    background-color: rgba(0, 0, 0, 0.5)
+    height: 300px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+.hero-title
+    font-size: 52px
+    color: white
+    margin-bottom: 15px
+    &-span
+        color: #8eff00
+.hero-text
+    font-size: 15px
+    color: #fefefedb
+    text-align: justify
+    line-height: 21px
+    max-width: 560px
+    margin: 0 auto
+    margin-bottom: 10px
+    &-span1
+        color: white
+        font-size: 18px
+    &-span2
+        color: #8eff00
+        font-size: 18px
+        margin-left: 5px
+.hero-button
+    appearance: none
+    background: none
+    position: relative
+    border: 1px solid #8eff00
+    padding: 5px 15px
+    display: flex
+    align-items: center
+    transition: all 250ms linear
+    cursor: pointer
+    border-radius: 5px
+    &:hover
+        // background: #659a23
+        border: 1px solid transparent
+    &-text
+        color: white
+        font-size: 27px
+        font-weight: 400
+        z-index: 1
+    &-thoomb
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background: #1cd51c8f
+        border-radius: 5px
+        transform: scaleX(-10%)
+        transition: all 250ms linear
+    &:hover .hero-button-thoomb
+        opacity: 1
+        transform: scaleX(100%)

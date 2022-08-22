@@ -1,0 +1,124 @@
+.callme
+    position: fixed
+    bottom: 5%
+    right: 5%
+    cursor: pointer
+    perspective: 200px
+    perspective-origin: 50% 50%
+    &:hover .callme-block
+        opacity: 0
+        transform: rotateY(180deg)
+    &:hover .callme-thoomb
+        opacity: 1
+        transform: rotateY(180deg)
+
+.callme-block
+    opacity: 1
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    background: #24dc5a
+    padding: 20px
+    transform: rotateY(0deg)
+    transition: all 500ms linear
+
+.callme-img
+    width: 35px
+
+.callme-thoomb
+    position: absolute
+    top: 0
+    left: 0
+    width: 35px
+    height: 35px
+    opacity: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    background: #24dc5a
+    padding: 20px
+    transform: rotateY(0deg)
+    transition: all 500ms linear
+    &-text
+        font-size: 18px
+        text-align: center
+        color: white
+        transform: rotateY(180deg)
+.callme-backdrop
+    display: flex
+    opacity: 0
+    pointer-events: none
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 5
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.6)
+    transition: all 250ms linear
+
+.callme-backdrop.active
+    opacity: 1
+    pointer-events: auto
+.callme-backdrop-block
+    padding: 40px
+    padding-bottom: 60px
+    background: white
+    display: flex
+    flex-direction: column
+    margin: auto
+    position: relative
+.callme-backdrop-block-close
+    position: absolute
+    top: 10px
+    right: 10px
+    appearance: none
+    border: none
+    background: none
+    cursor: pointer
+.callme-backdrop-block-close-icon
+    width: 30px
+    height: 30px
+.callme-backdrop-block-title
+    font-size: 19px
+    font-weight: 300
+    text-align: center
+.callme-backdrop-block-second
+    width: 100px
+    margin: 0 auto
+    margin-top: 20px
+.callme-backdrop-block-form
+    display: flex
+    gap: 10px
+    justify-content: center
+    margin-top: 30px
+.callme-backdrop-block-form-phone
+    padding: 15px 40px 15px 20px
+    font-family: 'Montserrat', sans-serif
+    font-size: 14px
+    font-weight: 300
+    color: $brown-color
+    &:focus
+        outline: none
+    &::placeholder
+        font-family: 'Montserrat', sans-serif
+        font-size: 14px
+        font-weight: 300
+        color: $brown-color
+
+.callme-backdrop-block-form-submit
+    background: none
+    padding: 20px 40px
+    font-size: 15px
+    font-weight: 400
+    transition: all 250ms linear
+    cursor: pointer
+    background: $green-color
+    border: 1px solid transparent
+    color: white
+    &:hover
+        border: 1px solid $green-color
+        background: transparent
+        color: $brown-color
