@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cabinet from "./pages/cabinet";
 import Home from "./pages/home";
 import Rent from "./pages/rent";
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rent" element={<Rent />} />
+          <Route path="/cabinet" element={<Cabinet />} />
         </Routes>
       </BrowserRouter>
     </>

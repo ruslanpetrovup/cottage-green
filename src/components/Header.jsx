@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
+import axios from "axios";
 
 const Header = () => {
   const [windowLog, setWindowLog] = useState(false);
@@ -11,6 +12,17 @@ const Header = () => {
   };
   const openWindowReg = () => {
     setWindowReg(!windowReg);
+  };
+  const registerUser = (e) => {
+    e.preventDefault();
+
+    console.dir(e.target[0].value);
+    axios.post("https://cottage-green.herokuapp.com/user/registration", {
+      email: e.target[2].value,
+      name: e.target[0].value,
+      secondname: e.target[1].value,
+      password: e.target[3].value,
+    });
   };
   return (
     <header className="header">
@@ -60,6 +72,7 @@ const Header = () => {
             </button>
           </div>
         </div>
+
         <div className={`window-singin ${windowLog ? "active" : ""}`}>
           <div className="window-input">
             <h2 className="window-title">Вхід до кабінету</h2>
@@ -81,10 +94,11 @@ const Header = () => {
             </button>
           </div>
         </div>
+
         <div className={`window-register ${windowReg ? "active" : ""}`}>
           <div className="window-register-input">
             <h2 className="window-register-title">Реєстрація до кабінету</h2>
-            <form className="window-register-form">
+            <form className="window-register-form" onSubmit={registerUser}>
               <input
                 className="window-register-form-name"
                 type="text"
@@ -105,7 +119,7 @@ const Header = () => {
                 type="password"
                 placeholder="Ваш пароль"
               />
-              <button className="window-register-form-submit">
+              <button className="window-register-form-submit" type="submit">
                 Зареєструватись
               </button>
             </form>

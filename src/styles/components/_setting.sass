@@ -1,0 +1,122 @@
+.setting-title
+    font-size: 28px
+    font-weight: 500
+    margin-top: 15px
+    padding-bottom: 10px
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5)
+
+.setting-content
+    display: flex
+
+.setting-menu
+    display: flex
+    flex-direction: column
+    // margin-top: 10px
+    width: 30%
+    border-right: 1px solid rgba(0, 0, 0, 0.5)
+.setting-work
+    width: 70%
+.setting-menu-button
+    display: flex
+    align-items: center
+    // color: white
+    font-size: 18px
+    font-weight: 300
+    text-align: left
+    padding: 20px 30px
+    cursor: pointer
+    &:not(:last-child)
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+    &-icon
+        width: 20px
+        margin-right: 10px
+
+.setting-work-profile
+    display: none
+    justify-content: space-between
+    padding-left: 30px
+    padding-top: 20px
+    &.active
+        display: flex
+.setting-work-profile-form
+    display: flex
+    flex-direction: column
+    gap: 30px
+.setting-work-profile-form-name
+    appearance: none
+    background: none
+    padding: 10px 10px 10px 25px
+    font-size: 18px
+    font-weight: 300
+    border: 1px solid silver
+    color: $brown-color
+    &:focus
+        outline: none
+.setting-work-profile-form-button
+    padding: 10px 20px
+    font-size: 18px
+    color: white
+    background: $green-color
+    border: 1px solid transparent
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        background: transparent
+        border: 1px solid $green-color
+        color: $green-color
+
+.setting-work-profile-avatar
+    display: flex
+    flex-direction: column
+    gap: 10px
+.setting-work-profile-avatar-img
+    border: 3px solid $brown-color
+    border-radius: 50%
+    overflow: hidden
+    display: flex
+    align-content: center
+    justify-content: center
+    max-width: 150px
+    max-height: 150px
+.setting-work-profile-avatar-button
+    padding: 10px 20px
+    color: white
+    background: $green-color
+    border: 1px solid transparent
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        background: transparent
+        border: 1px solid $green-color
+        color: $green-color
+
+.setting-work-houses
+    display: none
+    padding-left: 20px
+    &.active
+        display: block
+.setting-work-houses-list
+    display: flex
+    flex-direction: column
+
+.setting-work-houses-item
+    display: flex
+    align-items: center
+    justify-content: space-between
+    border-bottom: 3px solid $green-color
+    padding: 10px 0
+.setting-work-houses-head
+    font-size: 19px
+    font-weight: 500
+
+.setting-work-houses-button
+    padding: 10px 20px
+    color: white
+    background: $green-color
+    border: 1px solid transparent
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        background: transparent
+        border: 1px solid $green-color
+        color: $green-color
