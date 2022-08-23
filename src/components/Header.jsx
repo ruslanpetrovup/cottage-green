@@ -1,10 +1,36 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
+import settings from "../images/icons/setting.svg";
 import axios from "axios";
 
 const Header = () => {
+  const navitate = useNavigate();
+  const [loginOn, setLoginOn] = useState(false);
+  const [infoUser, setInfoUser] = useState({});
+  useEffect(() => {
+    console.log("suka");
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("https://cottage-green.herokuapp.com/auth/verify", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          setLoginOn(true);
+          setInfoUser(res.data.data.total);
+        });
+    } else {
+      setLoginOn(false);
+      setInfoUser({});
+    }
+  }, []);
+  const exitUser = () => {
+    localStorage.removeItem("token");
+    setInfoUser({});
+    setLoginOn(false);
+  };
   const [windowLog, setWindowLog] = useState(false);
   const [windowReg, setWindowReg] = useState(false);
   const openWindowLog = () => {
@@ -17,12 +43,34 @@ const Header = () => {
     e.preventDefault();
 
     console.dir(e.target[0].value);
-    axios.post("https://cottage-green.herokuapp.com/user/registration", {
-      email: e.target[2].value,
-      name: e.target[0].value,
-      secondname: e.target[1].value,
-      password: e.target[3].value,
-    });
+    axios.post(
+      "https://cottage-green.herokuapp.com/user/registration",
+      {
+        email: e.target[2].value,
+        name: e.target[0].value,
+        secondname: e.target[1].value,
+        password: e.target[3].value,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+  };
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const total = await axios.post(
+      "https://cottage-green.herokuapp.com/user/login",
+      {
+        email: e.target[0].value,
+        password: e.target[1].value,
+      }
+    );
+    localStorage.setItem("token", total.data.data.token);
+    console.log("sdasd");
+    window.location.reload(false);
   };
   return (
     <header className="header">
@@ -64,19 +112,40 @@ const Header = () => {
             </li>
           </ul>
           <div className="header-sing">
-            <button className="header-sing-singin" onClick={openWindowLog}>
-              Вхід
-            </button>
-            <button className="header-sing-register" onClick={openWindowReg}>
-              Реєстрація
-            </button>
+            {!loginOn ? (
+              <div className="header-sing-logout">
+                <button className="header-sing-singin" onClick={openWindowLog}>
+                  Вхід
+                </button>
+                <button
+                  className="header-sing-register"
+                  onClick={openWindowReg}
+                >
+                  Реєстрація
+                </button>
+              </div>
+            ) : (
+              <div className="header-sing-login">
+                <Link to="/cabinet" className="header-sing-login-cabinet">
+                  {infoUser.name}
+                  <img
+                    className="header-sing-login-cabinet-icon"
+                    src={settings}
+                    alt="icon"
+                  />
+                </Link>
+                <button className="header-sing-login-close" onClick={exitUser}>
+                  Вийти
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
         <div className={`window-singin ${windowLog ? "active" : ""}`}>
           <div className="window-input">
             <h2 className="window-title">Вхід до кабінету</h2>
-            <form className="window-form">
+            <form className="window-form" onSubmit={loginUser}>
               <input
                 className="window-form-email"
                 type="email"
@@ -87,7 +156,9 @@ const Header = () => {
                 type="password"
                 placeholder="Ваш пароль"
               />
-              <button className="window-form-submit">Увійти</button>
+              <button className="window-form-submit" type="submit">
+                Увійти
+              </button>
             </form>
             <button className="window-close" onClick={openWindowLog}>
               <img className="window-close-icon" src={close} alt="close" />
