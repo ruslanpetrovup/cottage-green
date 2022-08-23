@@ -148,3 +148,98 @@
     cursor: pointer
     &-icon
         width: 30px
+
+// register
+.window-register
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+    pointer-events: none
+    z-index: 2
+    display: flex
+    background: rgba(0, 0, 0, 0.5)
+    transition: all 250ms linear
+    &.active
+        opacity: 1
+        pointer-events: auto
+.window-register-input
+    position: relative
+    margin: auto
+    background: white
+    padding: 30px 40px
+.window-register-title
+    text-align: center
+    font-size: 22px
+    font-weight: 400
+    margin-bottom: 20px
+.window-register-form
+    display: flex
+    flex-direction: column
+    gap: 20px
+
+.window-register-form-name
+    appearance: none
+    background: none
+    border: 2px solid $silver-color
+    padding: 10px 5px 10px 20px
+    display: flex
+    align-items: center
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 300
+    &:focus
+        outline: none
+.window-register-form-email
+    appearance: none
+    background: none
+    border: 2px solid $silver-color
+    padding: 10px 5px 10px 20px
+    display: flex
+    align-items: center
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 300
+    &:focus
+        outline: none
+
+.window-register-form-password
+    appearance: none
+    background: none
+    border: 2px solid $silver-color
+    padding: 10px 5px 10px 20px
+    display: flex
+    align-items: center
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 300
+    &:focus
+        outline: none
+.window-register-form-submit
+    appearance: none
+    background: $green-color
+    color: white
+    border: 1px solid transparent
+    font-family: 'Montserrat', sans-serif
+    font-size: 15px
+    font-weight: 500
+    padding: 10px 10px
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        border: 1px solid $green-color
+        background: transparent
+        color: $green-color
+
+.window-register-close
+    appearance: none
+    border: none
+    background: none
+    position: absolute
+    top: 5px
+    right: 5px
+    cursor: pointer
+    &-icon
+        width: 30px

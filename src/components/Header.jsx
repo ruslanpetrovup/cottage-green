@@ -5,8 +5,12 @@ import close from "../images/icons/close.svg";
 
 const Header = () => {
   const [windowLog, setWindowLog] = useState(false);
+  const [windowReg, setWindowReg] = useState(false);
   const openWindowLog = () => {
     setWindowLog(!windowLog);
+  };
+  const openWindowReg = () => {
+    setWindowReg(!windowReg);
   };
   return (
     <header className="header">
@@ -51,7 +55,9 @@ const Header = () => {
             <button className="header-sing-singin" onClick={openWindowLog}>
               Вхід
             </button>
-            <button className="header-sing-register">Реєстрація</button>
+            <button className="header-sing-register" onClick={openWindowReg}>
+              Реєстрація
+            </button>
           </div>
         </div>
         <div className={`window-singin ${windowLog ? "active" : ""}`}>
@@ -72,6 +78,43 @@ const Header = () => {
             </form>
             <button className="window-close" onClick={openWindowLog}>
               <img className="window-close-icon" src={close} alt="close" />
+            </button>
+          </div>
+        </div>
+        <div className={`window-register ${windowReg ? "active" : ""}`}>
+          <div className="window-register-input">
+            <h2 className="window-register-title">Реєстрація до кабінету</h2>
+            <form className="window-register-form">
+              <input
+                className="window-register-form-name"
+                type="text"
+                placeholder="Ім'я"
+              />
+              <input
+                className="window-register-form-name"
+                type="text"
+                placeholder="Прізвище"
+              />
+              <input
+                className="window-register-form-email"
+                type="email"
+                placeholder="Ваша пошта"
+              />
+              <input
+                className="window-register-form-password"
+                type="password"
+                placeholder="Ваш пароль"
+              />
+              <button className="window-register-form-submit">
+                Зареєструватись
+              </button>
+            </form>
+            <button className="window-register-close" onClick={openWindowReg}>
+              <img
+                className="window-register-close-icon"
+                src={close}
+                alt="close"
+              />
             </button>
           </div>
         </div>
