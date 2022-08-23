@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cabinet from "./pages/cabinet";
 import Home from "./pages/home";
 import Rent from "./pages/rent";
+import PrivateRouter from "./components/PrivateRouter";
 const App = () => {
   return (
     <>
@@ -10,7 +11,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rent" element={<Rent />} />
-          <Route path="/cabinet" element={<Cabinet />} />
+          <Route
+            path="/cabinet"
+            element={<PrivateRouter element={<Cabinet />} />}
+          />
         </Routes>
       </BrowserRouter>
     </>

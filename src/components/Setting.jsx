@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import setting from "../images/icons/setting.svg";
 import home from "../images/icons/home.svg";
 import avatar from "../images/avatar.jpg";
 const Setting = () => {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    setData(JSON.parse(localStorage.getItem("data")));
+  }, []);
   const menuSetting = ({ target }) => {
     const windowProfile = document.querySelector(".setting-work-profile");
     const windowHouses = document.querySelector(".setting-work-houses");
@@ -50,12 +55,12 @@ const Setting = () => {
                   <input
                     type="text"
                     className="setting-work-profile-form-name"
-                    placeholder="Микита"
+                    placeholder={data.name}
                   />
                   <input
                     type="text"
                     className="setting-work-profile-form-name"
-                    placeholder="Фесенко"
+                    placeholder={data.secondname}
                   />
                   <button className="setting-work-profile-form-button">
                     Змінити

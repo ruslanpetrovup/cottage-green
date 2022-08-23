@@ -6,11 +6,10 @@ import settings from "../images/icons/setting.svg";
 import axios from "axios";
 
 const Header = () => {
-  const navitate = useNavigate();
+  const navigate = useNavigate();
   const [loginOn, setLoginOn] = useState(false);
   const [infoUser, setInfoUser] = useState({});
   useEffect(() => {
-    console.log("suka");
     const token = localStorage.getItem("token");
     if (token) {
       axios
@@ -20,6 +19,7 @@ const Header = () => {
         .then((res) => {
           setLoginOn(true);
           setInfoUser(res.data.data.total);
+          localStorage.setItem("data", JSON.stringify(res.data.data.total));
         });
     } else {
       setLoginOn(false);
@@ -30,6 +30,7 @@ const Header = () => {
     localStorage.removeItem("token");
     setInfoUser({});
     setLoginOn(false);
+    navigate("/");
   };
   const [windowLog, setWindowLog] = useState(false);
   const [windowReg, setWindowReg] = useState(false);
@@ -69,7 +70,6 @@ const Header = () => {
       }
     );
     localStorage.setItem("token", total.data.data.token);
-    console.log("sdasd");
     window.location.reload(false);
   };
   return (
