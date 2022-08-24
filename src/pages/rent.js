@@ -8,7 +8,7 @@ import "../styles/main.scss";
 
 const Rent = () => {
   const [cottage, setCottage] = useState([]);
-  axios.get("http://localhost:3000/catalog/get").then((res) => {
+  axios.get("https://cottage-green.herokuapp.com/catalog/get").then((res) => {
     // console.dir(res.data);
     setCottage(res.data);
   });
