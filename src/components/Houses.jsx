@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import room from "../images/icons/rooms.svg";
 import bed from "../images/icons/bed.svg";
 import people from "../images/icons/people.svg";
 import stairs from "../images/icons/stairs.svg";
 import Typewriter from "typewriter-effect/dist/core";
 
-const Houses = ({ cottages }) => {
-  var app = document.getElementById("rep");
+const Houses = () => {
+  const [cottages, setData] = useState([]);
+  useEffect(() => {
+    axios.get("https://cottage-green.herokuapp.com/catalog/get").then((res) => {
+      setData(res.data);
+    });
+  }, []);
 
+  var app = document.getElementById("rep");
   var typewriter = new Typewriter(app, {
     loop: true,
   });
