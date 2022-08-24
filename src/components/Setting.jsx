@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import setting from "../images/icons/setting.svg";
 import home from "../images/icons/home.svg";
 import avatar from "../images/avatar.jpg";
+import axios from "axios";
 const Setting = () => {
   const [data, setData] = useState({});
 
@@ -20,6 +21,20 @@ const Setting = () => {
     } else {
       windowHouses.classList.add("active");
     }
+  };
+  const editName = async (e) => {
+    e.preventDefault();
+    const result = await axios.post(
+      "https://cottage-green.herokuapp.com/user/edit-name",
+      {
+        token: localStorage.getItem("token"),
+        name: e.target[0].value,
+        secondname: e.target[1].value,
+      }
+    );
+    localStorage.setItem("data", JSON.stringify(result));
+    setData(result);
+    window.location.reload(false);
   };
   return (
     <section className="setting">
@@ -51,7 +66,7 @@ const Setting = () => {
             </div>
             <div className="setting-work">
               <div className="setting-work-profile active">
-                <form className="setting-work-profile-form">
+                <form className="setting-work-profile-form" onSubmit={editName}>
                   <input
                     type="text"
                     className="setting-work-profile-form-name"
@@ -62,7 +77,10 @@ const Setting = () => {
                     className="setting-work-profile-form-name"
                     placeholder={data.secondname}
                   />
-                  <button className="setting-work-profile-form-button">
+                  <button
+                    className="setting-work-profile-form-button"
+                    type="submit"
+                  >
                     Змінити
                   </button>
                 </form>

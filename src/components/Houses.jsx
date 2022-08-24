@@ -79,7 +79,7 @@ const Houses = ({ cottages }) => {
                         Nostrum, natus vero?
                       </p>
                       <p className="houses-item-prise">
-                        Ціна: {num.prise}грн\ніч
+                        Ціна: {num.price}грн\ніч
                       </p>
                       <button className="houses-item-buy">Забронювати</button>
                     </div>
