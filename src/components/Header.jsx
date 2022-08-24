@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
-import settings from "../images/icons/setting.svg";
+import sprite from "../images/icons/sprite.svg";
 import axios from "axios";
 
 const Header = () => {
@@ -128,11 +128,9 @@ const Header = () => {
               <div className="header-sing-login">
                 <Link to="/cabinet" className="header-sing-login-cabinet">
                   {infoUser.name}
-                  <img
-                    className="header-sing-login-cabinet-icon"
-                    src={settings}
-                    alt="icon"
-                  />
+                  <svg className="header-sing-login-cabinet-icon">
+                    <use href={`${sprite}#settings`}></use>
+                  </svg>
                 </Link>
                 <button className="header-sing-login-close" onClick={exitUser}>
                   Вийти

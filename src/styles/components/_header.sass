@@ -78,22 +78,39 @@
     gap: 10px
     font-size: 18px
     color: $green-color
-    font-weight: 500
-    border: 1px solid $brown-color
-    border-radius: 5px
-    padding: 5px 10px
-
+    font-weight: 300
+    border: 1px solid $green-color
+    padding: 10px 20px
+    padding-right: 15px
+    transition: all 250ms linear
+    &:hover
+        border: 1px solid transparent
+        background: $green-color
+        color: white
+    &:hover .header-sing-login-cabinet-icon
+        fill: white
 .header-sing-login-cabinet-icon
-    width: 25px
+    width: 20px
+    height: 20px
+    fill: $green-color
+    transition: fill 250ms linear
 
 .header-sing-login-close
-    font-size: 18px
+    text-decoration: none
     color: red
+    font-size: 18px
     font-weight: 500
     cursor: pointer
-    border: 1px solid $brown-color
-    border-radius: 5px
-    padding: 5px 10px
+    border: 1px solid
+    border-image: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082)
+    border-image-slice: 1
+    text-transform: uppercase
+    padding: 10px 25px
+    transition: all 250ms linear
+    &:hover
+        border: 1px solid transparent
+        color: white
+        background: red
 
 .window-singin
     position: fixed

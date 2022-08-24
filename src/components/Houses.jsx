@@ -5,6 +5,7 @@ import bed from "../images/icons/bed.svg";
 import people from "../images/icons/people.svg";
 import stairs from "../images/icons/stairs.svg";
 import Typewriter from "typewriter-effect/dist/core";
+import { TailSpin } from "react-loader-spinner";
 
 const Houses = () => {
   const [cottages, setData] = useState([]);
@@ -37,62 +38,75 @@ const Houses = () => {
               </h1>
             </div>
             <div className="houses-list-block">
-              <ul className="houses-list">
-                {cottages.map((num) => (
-                  <li className="houses-item">
-                    <img className="houses-img" alt="house" src={num.img} />
-                    <div className="houses-item-block">
-                      <h2 className="houses-item-title">{num.title}</h2>
-                      <div className="houses-item-text-list">
-                        <p className="houses-item-text">
-                          <img
-                            className="houses-item-text-icon"
-                            src={room}
-                            alt="room"
-                          />
-                          : {num.room}
+              {cottages.length !== 0 ? (
+                <ul className="houses-list">
+                  {cottages.map((num) => (
+                    <li className="houses-item">
+                      <img className="houses-img" alt="house" src={num.img} />
+                      <div className="houses-item-block">
+                        <h2 className="houses-item-title">{num.title}</h2>
+                        <div className="houses-item-text-list">
+                          <p className="houses-item-text">
+                            <img
+                              className="houses-item-text-icon"
+                              src={room}
+                              alt="room"
+                            />
+                            : {num.room}
+                          </p>
+                          <p className="houses-item-text">
+                            <img
+                              className="houses-item-text-icon"
+                              src={bed}
+                              alt="bed"
+                            />
+                            : {num.bed}
+                          </p>
+                          <p className="houses-item-text">
+                            <img
+                              className="houses-item-text-icon"
+                              src={people}
+                              alt="people"
+                            />
+                            : {num.people}
+                          </p>
+                          <p className="houses-item-text">
+                            <img
+                              className="houses-item-text-icon"
+                              src={stairs}
+                              alt="stairs"
+                            />
+                            : {num.stairs}
+                          </p>
+                        </div>
+                        <p className="houses-item-des">
+                          Lorem ipsum dolor sit amet consectetur, adipisicing
+                          elit. Tempora aliquam quam, architecto molestiae omnis
+                          voluptatibus nihil quis rerum possimus natus voluptas
+                          neque labore sint quasi laborum hic excepturi
+                          aspernatur quaerat fugiat dolores amet atque dolore
+                          fugit ipsa! Nostrum, natus vero?
                         </p>
-                        <p className="houses-item-text">
-                          <img
-                            className="houses-item-text-icon"
-                            src={bed}
-                            alt="bed"
-                          />
-                          : {num.bed}
+                        <p className="houses-item-prise">
+                          Ціна: {num.price}грн\ніч
                         </p>
-                        <p className="houses-item-text">
-                          <img
-                            className="houses-item-text-icon"
-                            src={people}
-                            alt="people"
-                          />
-                          : {num.people}
-                        </p>
-                        <p className="houses-item-text">
-                          <img
-                            className="houses-item-text-icon"
-                            src={stairs}
-                            alt="stairs"
-                          />
-                          : {num.stairs}
-                        </p>
+                        <button className="houses-item-buy">Забронювати</button>
                       </div>
-                      <p className="houses-item-des">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Tempora aliquam quam, architecto molestiae omnis
-                        voluptatibus nihil quis rerum possimus natus voluptas
-                        neque labore sint quasi laborum hic excepturi aspernatur
-                        quaerat fugiat dolores amet atque dolore fugit ipsa!
-                        Nostrum, natus vero?
-                      </p>
-                      <p className="houses-item-prise">
-                        Ціна: {num.price}грн\ніч
-                      </p>
-                      <button className="houses-item-buy">Забронювати</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <TailSpin
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="tail-spin-loading"
+                  radius="1"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ const Setting = () => {
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("data")));
   }, []);
+
   const menuSetting = ({ target }) => {
     const windowProfile = document.querySelector(".setting-work-profile");
     const windowHouses = document.querySelector(".setting-work-houses");
@@ -34,7 +35,7 @@ const Setting = () => {
     );
     localStorage.setItem("data", JSON.stringify(result));
     setData(result);
-    window.location.reload(false);
+    window.location.reload(true);
   };
   return (
     <section className="setting">
@@ -67,16 +68,24 @@ const Setting = () => {
             <div className="setting-work">
               <div className="setting-work-profile active">
                 <form className="setting-work-profile-form" onSubmit={editName}>
-                  <input
-                    type="text"
-                    className="setting-work-profile-form-name"
-                    placeholder={data.name}
-                  />
-                  <input
-                    type="text"
-                    className="setting-work-profile-form-name"
-                    placeholder={data.secondname}
-                  />
+                  <div className="setting-work-profile-form-block">
+                    <input
+                      type="text"
+                      className="setting-work-profile-form-name"
+                    />
+                    <p className="setting-work-profile-form-text">
+                      {data.name}
+                    </p>
+                  </div>
+                  <div className="setting-work-profile-form-block">
+                    <input
+                      type="text"
+                      className="setting-work-profile-form-name"
+                    />
+                    <p className="setting-work-profile-form-text">
+                      {data.secondname}
+                    </p>
+                  </div>
                   <button
                     className="setting-work-profile-form-button"
                     type="submit"

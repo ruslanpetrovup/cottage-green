@@ -1,0 +1,223 @@
+.check-block
+    padding-top: 50px
+
+.check-head
+    font-size: 30px
+    font-weight: 400
+    margin-bottom: 30px
+.check-add
+    display: flex
+    justify-content: space-between
+
+.check-add-photo
+    width: 55%
+    border: 1px solid $green-color
+
+.check-add-form
+    width: 40%
+    display: flex
+    flex-direction: column
+
+.check-add-form-first
+    display: flex
+    justify-content: space-between
+    width: 100%
+.check-add-form-block-text
+    pointer-events: none
+    position: absolute
+    top: 5px
+    left: 10px
+    transition: transform 150ms linear
+
+.check-add-form-block-title
+    width: 49%
+    position: relative
+    &-text
+        position: absolute
+        top: 5px
+        left: 10px
+        transition: transform 150ms linear
+
+.check-add-form-block-price
+    width: 49%
+    position: relative
+    &-text
+        position: absolute
+        top: 5px
+        left: 10px
+        transition: transform 150ms linear
+
+.check-add-form-title
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+.check-add-form-price
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+
+.check-add-form-second
+    display: flex
+    justify-content: space-between
+    width: 100%
+
+.check-add-form-block-room
+    position: relative
+    width: calc(25% - 2px)
+.check-add-form-block-bed
+    position: relative
+    width: calc(25% - 2px)
+.check-add-form-block-people
+    position: relative
+    width: calc(25% - 2px)
+.check-add-form-block-stairs
+    position: relative
+    width: calc(25% - 2px)
+
+.check-add-form-room
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+
+.check-add-form-bed
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+
+.check-add-form-people
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+
+.check-add-form-stairs
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 10px
+    margin-bottom: 25px
+    color: #212529
+    background-color: #fff
+    background-clip: padding-box
+    border: 1px solid #bdbdbd
+    border-radius: 0.25rem
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+    &:focus
+        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25)
+        color: #212529
+        background-color: #fff
+        border-color: #bdbdbd
+        outline: none
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &::placeholder
+        color: #212529
+        opacity: 0.4
+
+.check-add-form-button
+    background: transparent
+    border: 1px solid $green-color
+    color: $green-color
+    padding: 10px 20px
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        border: 1px solid transparent
+        color: white
+        background: $green-color

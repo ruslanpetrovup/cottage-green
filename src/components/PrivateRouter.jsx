@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
 
 const PrivateRouter = ({ element }) => {
   let open = false;
