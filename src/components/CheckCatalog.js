@@ -14,7 +14,9 @@ const CheckCatalog = () => {
 
   const deleteHouse = ({ target }) => {
     // console.dir(target.dataset.key);
-    axios.delete(`http://localhost:3000/catalog/delete/${target.dataset.key}`);
+    axios.delete(
+      `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
+    );
   };
 
   const styleTest = ({ target }) => {
