@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import setting from "../images/icons/setting.svg";
 import home from "../images/icons/home.svg";
-import avatar from "../images/avatar.jpg";
 import axios from "axios";
 const Setting = () => {
   const [data, setData] = useState({});
@@ -23,19 +22,27 @@ const Setting = () => {
       windowHouses.classList.add("active");
     }
   };
-  const editName = async (e) => {
+  const editName = (e) => {
     e.preventDefault();
-    const result = await axios.post(
-      "https://cottage-green.herokuapp.com/user/edit-name",
-      {
+    axios
+      .post("https://cottage-green.herokuapp.com/user/edit-name", {
         token: localStorage.getItem("token"),
         name: e.target[0].value,
         secondname: e.target[1].value,
-      }
-    );
-    localStorage.setItem("data", JSON.stringify(result));
-    setData(result);
-    window.location.reload(true);
+      })
+      .then((res) => {
+        console.dir(res.data);
+        setData(res.data);
+        // localStorage.setItem("data", JSON.stringify(res.data));
+        e.target[0].value = "";
+        window.location.reload(false);
+      });
+    document.getElementById("name").innerText = e.target[0].value;
+  };
+  const editAvatar = (e) => {
+    axios.post("https://cottage-green.herokuapp.com/user/edit-name", {
+      token: localStorage.getItem("token"),
+    });
   };
   return (
     <section className="setting">
@@ -73,7 +80,7 @@ const Setting = () => {
                       type="text"
                       className="setting-work-profile-form-name"
                     />
-                    <p className="setting-work-profile-form-text">
+                    <p id="name" className="setting-work-profile-form-text">
                       {data.name}
                     </p>
                   </div>
@@ -82,7 +89,10 @@ const Setting = () => {
                       type="text"
                       className="setting-work-profile-form-name"
                     />
-                    <p className="setting-work-profile-form-text">
+                    <p
+                      id="secondname"
+                      className="setting-work-profile-form-text"
+                    >
                       {data.secondname}
                     </p>
                   </div>
@@ -96,10 +106,13 @@ const Setting = () => {
                 <div className="setting-work-profile-avatar">
                   <img
                     className="setting-work-profile-avatar-img"
-                    src={avatar}
+                    src={data.avatar}
                     alt="avatar"
                   />
-                  <button className="setting-work-profile-avatar-button">
+                  <button
+                    onClick={editAvatar}
+                    className="setting-work-profile-avatar-button"
+                  >
                     Змінити фото
                   </button>
                 </div>
