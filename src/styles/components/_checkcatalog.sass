@@ -10,11 +10,47 @@
     justify-content: space-between
 
 .check-add-photo
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
     width: 55%
     border: 1px solid $green-color
+.check-add-photo-back
+    pointer-events: none
+    width: 100%
+    opacity: 0
+    transition: opacity 450ms linear
+    &.active
+        opacity: 1
+        pointer-events: auto
+.check-add-photo-icon
+    opacity: 1
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 50px
+    height: 50px
+    transform: translate(-50%,-50%)
+    transition: opacity 250ms linear
+    &.active
+        opacity: 0
+.check-add-photo-input
+    cursor: pointer
+    position: absolute
+    top: 0
+    left: 0
+    opacity: 0
+    width: 100%
+    height: 100%
 
 .check-add-form
-    width: 40%
+    width: 100%
+    display: flex
+    justify-content: space-between
+
+.check-add-form-thoomb
+    width: 44%
     display: flex
     flex-direction: column
 
@@ -28,6 +64,8 @@
     top: 5px
     left: 10px
     transition: transform 150ms linear
+    font-size: 16px
+    font-weight: 300
 
 .check-add-form-block-title
     width: 49%
@@ -68,10 +106,13 @@
     &:focus + .check-add-form-block-text
         transform: translateY(-28px)
         color: blue
-
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+
 .check-add-form-price
     width: 100%
     box-sizing: border-box
@@ -95,6 +136,9 @@
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-second
     display: flex
@@ -106,13 +150,31 @@
     width: calc(25% - 2px)
 .check-add-form-block-bed
     position: relative
-    width: calc(25% - 2px)
+    width: calc(23% - 2px)
 .check-add-form-block-people
     position: relative
     width: calc(25% - 2px)
 .check-add-form-block-stairs
     position: relative
-    width: calc(25% - 2px)
+    width: calc(27% - 2px)
+
+.check-add-form-block-desc
+    position: relative
+    width: 100%
+
+.check-add-form-desc
+    width: 100%
+    box-sizing: border-box
+    height: 90px
+    resize: none
+    padding: 5px 10px
+    margin-bottom: 15px
+    &:focus + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-room
     width: 100%
@@ -137,6 +199,9 @@
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-bed
     width: 100%
@@ -161,6 +226,9 @@
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-people
     width: 100%
@@ -185,6 +253,9 @@
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-stairs
     width: 100%
@@ -209,6 +280,9 @@
     &::placeholder
         color: #212529
         opacity: 0.4
+    &.active + .check-add-form-block-text
+        transform: translateY(-28px)
+        color: blue
 
 .check-add-form-button
     background: transparent
@@ -221,3 +295,62 @@
         border: 1px solid transparent
         color: white
         background: $green-color
+
+.check-catalog
+    margin-top: 15px
+    padding-top: 20px
+    border-top: 2px solid silver
+
+.check-catalog-list
+    display: flex
+    flex-direction: column
+    // gap: 5px
+
+.check-catalog-item
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 5px 10px
+    &:nth-child(odd)
+        background: #fafafa
+
+.check-catalog-img
+    width: 70px
+
+.check-catalog-head
+    font-size: 18px
+    font-weight: 300
+    color: green
+
+.check-catalog-text
+    max-width: 340px
+    word-break: break-all
+
+.check-catalog-buttons
+    display: flex
+    align-items: center
+    gap: 5px
+
+.check-catalog-edit
+    background: blue
+    color: white
+    border: 1px solid transparent
+    padding: 12px 20px
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        color: blue
+        border: 1px solid blue
+        background: transparent
+
+.check-catalog-delete
+    background: red
+    color: white
+    padding: 12px 20px
+    border: 1px solid transparent
+    cursor: pointer
+    transition: all 250ms linear
+    &:hover
+        color: red
+        border: 1px solid red
+        background: transparent

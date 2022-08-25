@@ -79,14 +79,7 @@ const Houses = () => {
                             : {num.stairs}
                           </p>
                         </div>
-                        <p className="houses-item-des">
-                          Lorem ipsum dolor sit amet consectetur, adipisicing
-                          elit. Tempora aliquam quam, architecto molestiae omnis
-                          voluptatibus nihil quis rerum possimus natus voluptas
-                          neque labore sint quasi laborum hic excepturi
-                          aspernatur quaerat fugiat dolores amet atque dolore
-                          fugit ipsa! Nostrum, natus vero?
-                        </p>
+                        <p className="houses-item-des">{num.desc}</p>
                         <p className="houses-item-prise">
                           Ціна: {num.price}грн\ніч
                         </p>
