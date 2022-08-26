@@ -20,18 +20,22 @@ const CheckCatalog = () => {
 
     let formdata = new FormData();
     formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
-    formdata.append("image", e.target[0].files[0], e.target[0].value);
+    formdata.append("image", e.target[1].files[0], e.target[1].value);
     axios.post("https://api.imgbb.com/1/upload", formdata).then((response) => {
-      axios.post("https://cottage-green.herokuapp.com/catalog/add", {
-        title: e.target[1].value,
-        img: response.data.data.url,
-        room: e.target[3].value,
-        bed: e.target[4].value,
-        people: e.target[5].value,
-        stairs: e.target[6].value,
-        price: e.target[2].value,
-        desc: e.target[7].value,
-      });
+      axios
+        .post("https://cottage-green.herokuapp.com/catalog/add", {
+          title: e.target[2].value,
+          img: response.data.data.url,
+          room: e.target[4].value,
+          bed: e.target[5].value,
+          people: e.target[6].value,
+          stairs: e.target[7].value,
+          price: e.target[3].value,
+          desc: e.target[8].value,
+        })
+        .then((res) => {
+          setCatalog([...data, res.data]);
+        });
     });
   };
 
@@ -75,11 +79,12 @@ const CheckCatalog = () => {
     check.classList.remove("active");
   };
 
-  const deleteHouse = ({ target }) => {
-    // console.dir(target.dataset.key);
-    axios.delete(
+  const deleteHouse = async ({ target }) => {
+    const result = await axios.delete(
       `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
     );
+    const total = data.filter((num) => result.data._id !== num._id && num);
+    setCatalog(total);
   };
   return (
     <section className="check">

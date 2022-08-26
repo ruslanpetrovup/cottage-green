@@ -40,8 +40,16 @@ const Setting = () => {
     document.getElementById("name").innerText = e.target[0].value;
   };
   const editAvatar = (e) => {
-    axios.post("https://cottage-green.herokuapp.com/user/edit-name", {
-      token: localStorage.getItem("token"),
+    let formdata = new FormData();
+    formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
+
+    formdata.append("image", e.target[0].files[0], e.target[0].value);
+
+    axios.post("https://api.imgbb.com/1/upload", formdata).then((res) => {
+      axios.post("https://cottage-green.herokuapp.com/user/edit-name", {
+        token: localStorage.getItem("token"),
+        avatar: res.data.data.url,
+      });
     });
   };
   return (
@@ -57,7 +65,7 @@ const Setting = () => {
                 data-name="settings"
               >
                 <img
-                  class="setting-menu-button-icon"
+                  className="setting-menu-button-icon"
                   src={setting}
                   alt="icon"
                 />

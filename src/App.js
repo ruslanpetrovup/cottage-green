@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import Rent from "./pages/rent";
 import PrivateRouter from "./components/PrivateRouter";
 import Admin from "./pages/admin";
+import Comment from "./pages/comment";
 const App = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const App = () => {
             element={<PrivateRouter element={<Cabinet />} />}
           />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/comments" element={<Comment />} />
         </Routes>
       </BrowserRouter>
     </>

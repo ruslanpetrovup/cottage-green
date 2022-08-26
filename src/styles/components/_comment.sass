@@ -1,0 +1,89 @@
+.comment-loader
+    display: flex
+    justify-content: center
+
+.comment-title
+    font-size: 25px
+    font-weight: 500
+    margin-top: 30px
+    color: $green-color
+    text-align: center
+.comment-desc
+    text-align: center
+    margin-top: 10px
+
+.comment-submit
+    margin-top: 20px
+
+.comment-sumbit-form
+    display: flex
+    width: 100%
+    flex-direction: column
+    box-sizing: border-box
+
+.comment-submit-form-input
+    min-height: 100px
+    resize: none
+    box-sizing: border-box
+    border: 1px solid $green-color
+    font-size: 18px
+    font-weight: 300
+    font-family: "Montserrat", sans-serif
+    padding: 10px 20px
+    &:focus
+        outline: 1px solid blue
+    &:hover
+        outline: none
+        border: 1px solid $green-color
+
+.comment-submit-button-block
+    display: flex
+    justify-content: flex-end
+    margin-top: 10px
+
+.comment-sumbit-button
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 15px 80px
+    background: transparent
+    border: 1px solid $green-color
+    color: $green-color
+    font-size: 16px
+    font-weight: 400
+    transition: all 250ms linear
+    cursor: pointer
+    &:hover
+        border: 1px solid transparent
+        color: white
+        background: $green-color
+
+.comment-list
+    padding-top: 10px
+    padding-bottom: 30px
+    margin-top: 30px
+    border-top: 1px solid silver
+
+.comment-info
+    display: flex
+    flex-direction: column-reverse
+    gap: 5px
+
+.comment-item
+    display: flex
+    padding-bottom: 20px
+    border-bottom: 1px solid $green-color
+
+.comment-item-profile
+    display: flex
+    flex-direction: column
+    gap: 5px
+    align-items: center
+    justify-content: center
+    width: 20%
+
+.comment-item-profile-img
+    width: 70px
+
+.comment-item-text
+    width: 80%
