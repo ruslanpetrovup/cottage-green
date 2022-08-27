@@ -14,8 +14,18 @@ const CommentList = () => {
 
   const addComment = async (e) => {
     e.preventDefault();
+    if (localStorage.getItem("data") === null) {
+      document
+        .querySelector(".comment-submit-button-message")
+        .classList.add("active");
+      setTimeout(() => {
+        document
+          .querySelector(".comment-submit-button-message")
+          .classList.remove("active");
+      }, 5000);
+      return;
+    }
     if (e.target[0].value.length < 2) return;
-
     const user = JSON.parse(localStorage.getItem("data"));
     const result = await axios.post(
       "https://cottage-green.herokuapp.com/comment/add",
@@ -59,6 +69,10 @@ const CommentList = () => {
                 className="comment-submit-form-input"
               ></textarea>
               <div className="comment-submit-button-block">
+                <p className="comment-submit-button-message">
+                  Для написання повідомлення вам потрібно зареєструватися або
+                  увійти до свого облікового запису
+                </p>
                 <button type="submit" className="comment-sumbit-button">
                   Надіслати
                 </button>

@@ -1,0 +1,30 @@
+.checkcomments-list
+    display: flex
+    gap: 5px
+    flex-direction: column-reverse
+
+.checkcomments-item
+    display: flex
+    gap: 5px
+    border: 1px solid $green-color
+    padding: 5px 10px
+
+.comment-item-buttons
+    display: flex
+    justify-content: center
+    align-items: center
+
+.comment-item-delete
+    display: flex
+    padding: 15px 15px
+    justify-content: center
+    align-items: center
+    background: red
+    color: white
+    border: 1px solid transparent
+    transition: 250ms linear
+    cursor: pointer
+    &:hover
+        background: transparent
+        color: red
+        border: 1px solid red

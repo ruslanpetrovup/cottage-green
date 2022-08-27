@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
 import sprite from "../images/icons/sprite.svg";
@@ -7,7 +7,8 @@ import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [loginOn, setLoginOn] = useState(false);
+  const local = useLocation();
+  const [loginOn, setLoginOn] = useState(true);
   const [infoUser, setInfoUser] = useState({});
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -28,9 +29,12 @@ const Header = () => {
   }, []);
   const exitUser = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("data");
     setInfoUser({});
     setLoginOn(false);
-    navigate("/");
+    if (local.pathname === "/cabinet") {
+      navigate("/");
+    }
   };
   const [windowLog, setWindowLog] = useState(false);
   const [windowReg, setWindowReg] = useState(false);

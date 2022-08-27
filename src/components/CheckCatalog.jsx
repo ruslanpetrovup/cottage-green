@@ -7,11 +7,15 @@ import { CSSTransition } from "react-transition-group";
 
 const CheckCatalog = () => {
   const [data, setCatalog] = useState([]);
-  const [inProp, setInProp] = useState(false);
-
+  const [transtion, setTransition] = useState([]);
   useEffect(() => {
     axios.get("https://cottage-green.herokuapp.com/catalog/get").then((res) => {
       setCatalog(res.data);
+      const check = [];
+      res.data.forEach((item) => {
+        check.push({ _id: item._id, status: false });
+      });
+      setTransition(check);
     });
   }, []);
 
@@ -39,8 +43,14 @@ const CheckCatalog = () => {
     });
   };
 
-  const editHouse = () => {
-    setInProp(!inProp);
+  const editHouse = ({ target }) => {
+    const result = transtion.map((num) => {
+      if (num._id === target.id) {
+        return { _id: num._id, status: !num.status };
+      }
+      return num;
+    });
+    setTransition(result);
   };
 
   const styleTest = ({ target }) => {
@@ -86,6 +96,7 @@ const CheckCatalog = () => {
     const total = data.filter((num) => result.data._id !== num._id && num);
     setCatalog(total);
   };
+
   return (
     <section className="check">
       <div className="container">
@@ -168,7 +179,7 @@ const CheckCatalog = () => {
               </div>
             ) : (
               <ul className="check-catalog-list">
-                {data.map((num) => (
+                {data.map((num, index) => (
                   <li
                     className="check-catalog-item"
                     data-key={num._id}
@@ -185,6 +196,7 @@ const CheckCatalog = () => {
                       <p className="check-catalog-price">{num.price}грн</p>
                       <div className="check-catalog-buttons">
                         <button
+                          id={num._id}
                           className="check-catalog-edit"
                           onClick={editHouse}
                         >
@@ -200,7 +212,7 @@ const CheckCatalog = () => {
                       </div>
                     </div>
                     <CSSTransition
-                      in={inProp}
+                      in={transtion[index].status}
                       timeout={600}
                       classNames="alert"
                       unmountOnExit
