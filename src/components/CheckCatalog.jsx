@@ -18,6 +18,13 @@ const CheckCatalog = () => {
       setTransition(check);
     });
   }, []);
+  useEffect(() => {
+    const check = [];
+    data.forEach((item) => {
+      check.push({ _id: item._id, status: false });
+    });
+    setTransition(check);
+  }, [data]);
 
   const addCotalog = (e) => {
     e.preventDefault();
@@ -43,7 +50,7 @@ const CheckCatalog = () => {
     });
   };
 
-  const editHouse = ({ target }) => {
+  const opacityHouse = ({ target }) => {
     const result = transtion.map((num) => {
       if (num._id === target.id) {
         return { _id: num._id, status: !num.status };
@@ -51,6 +58,70 @@ const CheckCatalog = () => {
       return num;
     });
     setTransition(result);
+  };
+
+  const editHouse = (e) => {
+    e.preventDefault();
+    if (e.target[1].value === "") {
+      axios
+        .post(
+          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+          {
+            title: e.target[2].value,
+            img: "",
+            room: e.target[4].value,
+            bed: e.target[5].value,
+            people: e.target[6].value,
+            stairs: e.target[7].value,
+            price: e.target[3].value,
+            desc: e.target[8].value,
+          }
+        )
+        .then((res) => {
+          const mass = [];
+          data.forEach((num) => {
+            if (num._id === res.data._id) {
+              mass.push(res.data);
+            } else {
+              mass.push(num);
+            }
+          });
+          setCatalog(mass);
+        });
+    } else {
+      let formdata = new FormData();
+      formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
+      formdata.append("image", e.target[1].files[0], e.target[1].value);
+      axios
+        .post("https://api.imgbb.com/1/upload", formdata)
+        .then((response) => {
+          axios
+            .post(
+              `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+              {
+                title: e.target[2].value,
+                img: response.data.data.url,
+                room: e.target[4].value,
+                bed: e.target[5].value,
+                people: e.target[6].value,
+                stairs: e.target[7].value,
+                price: e.target[3].value,
+                desc: e.target[8].value,
+              }
+            )
+            .then((res) => {
+              const mass = [];
+              data.forEach((num) => {
+                if (num._id === res.data._id) {
+                  mass.push(res.data);
+                } else {
+                  mass.push(num);
+                }
+              });
+              setCatalog(mass);
+            });
+        });
+    }
   };
 
   const styleTest = ({ target }) => {
@@ -198,7 +269,7 @@ const CheckCatalog = () => {
                         <button
                           id={num._id}
                           className="check-catalog-edit"
-                          onClick={editHouse}
+                          onClick={opacityHouse}
                         >
                           Змінити
                         </button>
@@ -221,8 +292,9 @@ const CheckCatalog = () => {
                         <div className="check-add">
                           <form
                             className="check-add-form"
-                            onSubmit={addCotalog}
+                            onSubmit={editHouse}
                             onInput={styleTest}
+                            data-key={num._id}
                           >
                             <div className="check-add-photo">
                               <img
@@ -320,7 +392,7 @@ const CheckCatalog = () => {
                                 type="submit"
                                 className="check-add-form-button"
                               >
-                                Додати
+                                Змінити
                               </button>
                             </div>
                           </form>

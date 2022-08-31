@@ -6,6 +6,8 @@ import Rent from "./pages/rent";
 import PrivateRouter from "./components/PrivateRouter";
 import Admin from "./pages/admin";
 import Comment from "./pages/comment";
+import Contacts from "./pages/contacts";
+import HouseOne from "./pages/houseOne";
 const App = () => {
   return (
     <>
@@ -19,6 +21,8 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin />} />
           <Route path="/comments" element={<Comment />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/house/:id" element={<HouseOne />} />
         </Routes>
       </BrowserRouter>
     </>

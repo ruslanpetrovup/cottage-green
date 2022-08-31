@@ -1,18 +1,19 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import CommentList from "../components/CommentList";
+import Contact from "../components/Contant";
 import CallMe from "../components/CallMe";
 import "../styles/main.scss";
 
-const Comment = () => {
+const Contacts = () => {
   return (
     <>
       <Header />
-      <CommentList />
+      <Contact />
       <Footer />
       <CallMe />
     </>
   );
 };
-export default Comment;
+
+export default Contacts;

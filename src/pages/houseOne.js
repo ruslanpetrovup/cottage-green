@@ -1,18 +1,19 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import CommentList from "../components/CommentList";
 import CallMe from "../components/CallMe";
+import House from "../components/House";
 import "../styles/main.scss";
 
-const Comment = () => {
+const HouseOne = () => {
   return (
     <>
       <Header />
-      <CommentList />
+      <House />
       <Footer />
       <CallMe />
     </>
   );
 };
-export default Comment;
+
+export default HouseOne;

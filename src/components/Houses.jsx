@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import room from "../images/icons/rooms.svg";
 import bed from "../images/icons/bed.svg";
 import people from "../images/icons/people.svg";
@@ -83,7 +84,12 @@ const Houses = () => {
                         <p className="houses-item-prise">
                           Ціна: {num.price}грн\ніч
                         </p>
-                        <button className="houses-item-buy">Забронювати</button>
+                        <Link
+                          to={`/house/${num._id}`}
+                          className="houses-item-buy"
+                        >
+                          Забронювати
+                        </Link>
                       </div>
                     </li>
                   ))}
