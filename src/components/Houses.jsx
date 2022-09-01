@@ -44,6 +44,7 @@ const Houses = () => {
                   {cottages.map((num) => (
                     <li className="houses-item">
                       <img className="houses-img" alt="house" src={num.img} />
+
                       <div className="houses-item-block">
                         <h2 className="houses-item-title">{num.title}</h2>
                         <div className="houses-item-text-list">
