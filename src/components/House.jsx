@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import room from "../images/icons/rooms.svg";
 import bed from "../images/icons/bed.svg";
 import people from "../images/icons/people.svg";
@@ -17,11 +17,15 @@ const House = () => {
 
   useEffect(() => {
     window.scrollTo(window.scrollX, 0);
-    axios
+   try{
+     axios
       .get(`https://cottage-green.herokuapp.com/catalog/getOne/${id}`)
       .then((res) => {
         setData(res.data);
       });
+   }catch(error){
+    console.log(error)
+   }
   }, [id]);
 
   return (

@@ -6,20 +6,28 @@ const CheckComments = () => {
   const [comment, setComment] = useState([]);
 
   useEffect(() => {
-    axios.get("https://cottage-green.herokuapp.com/comment/get").then((res) => {
-      setComment(res.data);
-    });
+    try {
+      axios
+        .get("https://cottage-green.herokuapp.com/comment/get")
+        .then((res) => {
+          setComment(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
-  const deleteComment = ({ target }) => {
-    axios
-      .delete(
+  const deleteComment = async ({ target }) => {
+    try {
+      await axios.delete(
         `https://cottage-green.herokuapp.com/comment/delete/${target.dataset.id}`
-      )
-      .then((res) => {
-        const edit = comment.filter((num) => num._id !== target.dataset.id);
-        setComment(edit);
-      });
+      );
+
+      const edit = comment.filter((num) => num._id !== target.dataset.id);
+      setComment(edit);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <section className="checkcomments">

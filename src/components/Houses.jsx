@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import room from "../images/icons/rooms.svg";
@@ -10,23 +10,30 @@ import { TailSpin } from "react-loader-spinner";
 
 const Houses = () => {
   const [cottages, setData] = useState([]);
+  const app = useRef();
   useEffect(() => {
-    axios.get("https://cottage-green.herokuapp.com/catalog/get").then((res) => {
-      setData(res.data);
+    try {
+      axios
+        .get("https://cottage-green.herokuapp.com/catalog/get")
+        .then((res) => {
+          setData(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+
+    var typewriter = new Typewriter(app.current, {
+      loop: true,
     });
+
+    typewriter
+      .typeString("- це можливість відпочити від міської метушні")
+      .pauseFor(5500)
+      .deleteAll()
+      .pauseFor(5500)
+      .start();
   }, []);
 
-  var app = document.getElementById("rep");
-  var typewriter = new Typewriter(app, {
-    loop: true,
-  });
-
-  typewriter
-    .typeString("- це можливість відпочити від міської метушні")
-    .pauseFor(5500)
-    .deleteAll()
-    .pauseFor(5500)
-    .start();
   return (
     <section className="houses">
       <div className="houses-backdrop">
@@ -35,14 +42,14 @@ const Houses = () => {
             <div className="houses-description">
               <h1 className="houses-title">
                 Cottage<span className="houses-title-span">Green</span>
-                <p id="rep" className="houses-title-text"></p>
+                <p ref={app} id="rep" className="houses-title-text"></p>
               </h1>
             </div>
             <div className="houses-list-block">
               {cottages.length !== 0 ? (
                 <ul className="houses-list">
                   {cottages.map((num) => (
-                    <li className="houses-item">
+                    <li className="houses-item" key={num._id}>
                       <img className="houses-img" alt="house" src={num.img} />
 
                       <div className="houses-item-block">

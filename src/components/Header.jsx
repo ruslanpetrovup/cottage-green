@@ -10,10 +10,13 @@ const Header = () => {
   const local = useLocation();
   const [loginOn, setLoginOn] = useState(true);
   const [infoUser, setInfoUser] = useState({});
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token) {
-      axios
+     try{
+       axios
         .get("https://cottage-green.herokuapp.com/auth/verify", {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -22,6 +25,9 @@ const Header = () => {
           setInfoUser(res.data.data.total);
           localStorage.setItem("data", JSON.stringify(res.data.data.total));
         });
+     }catch(error){
+      console.log(error)
+     }
     } else {
       setLoginOn(false);
       setInfoUser({});
@@ -44,11 +50,12 @@ const Header = () => {
   const openWindowReg = () => {
     setWindowReg(!windowReg);
   };
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
 
     console.dir(e.target[0].value);
-    axios.post(
+    try{
+      await axios.post(
       "https://cottage-green.herokuapp.com/user/registration",
       {
         email: e.target[2].value,
@@ -63,10 +70,14 @@ const Header = () => {
         },
       }
     );
+    }catch(error){
+      console.log(error)
+    }
   };
   const loginUser = async (e) => {
     e.preventDefault();
-    const total = await axios.post(
+    try{
+      const total = await axios.post(
       "https://cottage-green.herokuapp.com/user/login",
       {
         email: e.target[0].value,
@@ -74,6 +85,9 @@ const Header = () => {
       }
     );
     localStorage.setItem("token", total.data.data.token);
+    }catch(error){
+      console.log(error)
+    }
     window.location.reload(false);
   };
   return (

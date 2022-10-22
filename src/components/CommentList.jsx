@@ -1,64 +1,72 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Typewriter from "typewriter-effect/dist/core";
 import axios from "axios";
 
 const CommentList = () => {
   const [comment, setComment] = useState([]);
+  const buttonMessage = useRef();
+  const commentDesc = useRef();
 
   useEffect(() => {
-    axios.get("https://cottage-green.herokuapp.com/comment/get").then((res) => {
-      setComment(res.data);
+    try {
+      axios
+        .get("https://cottage-green.herokuapp.com/comment/get")
+        .then((res) => {
+          setComment(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    const app = commentDesc.current;
+    let typewriter = new Typewriter(app, {
+      loop: true,
     });
+
+    typewriter
+      .typeString(
+        "Тут ви можете поділитися своїми емоціями після відпочинку в CottageGreen."
+      )
+      .pauseFor(5500)
+      .deleteAll()
+      .pauseFor(5500)
+      .start();
   }, []);
 
   const addComment = async (e) => {
     e.preventDefault();
     if (localStorage.getItem("data") === null) {
-      document
-        .querySelector(".comment-submit-button-message")
-        .classList.add("active");
+      buttonMessage.current.classList.add("active");
       setTimeout(() => {
-        document
-          .querySelector(".comment-submit-button-message")
-          .classList.remove("active");
+        buttonMessage.current.classList.remove("active");
       }, 5000);
       return;
     }
     if (e.target[0].value.length < 2) return;
     const user = JSON.parse(localStorage.getItem("data"));
-    const result = await axios.post(
-      "https://cottage-green.herokuapp.com/comment/add",
-      {
-        avatar: user.avatar,
-        name: user.name,
-        secondname: user.secondname,
-        comment: e.target[0].value,
-      }
-    );
-    e.target[0].value = "";
-    setComment([...comment, result.data]);
+    try {
+      const result = await axios.post(
+        "https://cottage-green.herokuapp.com/comment/add",
+        {
+          avatar: user.avatar,
+          name: user.name,
+          secondname: user.secondname,
+          comment: e.target[0].value,
+        }
+      );
+      e.target[0].value = "";
+      setComment([...comment, result.data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  let app = document.querySelector(".comment-desc");
-  let typewriter = new Typewriter(app, {
-    loop: true,
-  });
-
-  typewriter
-    .typeString(
-      "Тут ви можете поділитися своїми емоціями після відпочинку в CottageGreen."
-    )
-    .pauseFor(5500)
-    .deleteAll()
-    .pauseFor(5500)
-    .start();
   return (
     <section className="comment">
       <div className="container">
         <div className="comment-block">
           <h1 className="comment-title">Відгуки</h1>
-          <p className="comment-desc">
+          <p className="comment-desc" ref={commentDesc}>
             Тут ви можете поділитися своїми емоціями після відпочинку в
             CottageGreen.
           </p>
@@ -69,7 +77,10 @@ const CommentList = () => {
                 className="comment-submit-form-input"
               ></textarea>
               <div className="comment-submit-button-block">
-                <p className="comment-submit-button-message">
+                <p
+                  ref={buttonMessage}
+                  className="comment-submit-button-message"
+                >
                   Для написання повідомлення вам потрібно зареєструватися або
                   увійти до свого облікового запису
                 </p>

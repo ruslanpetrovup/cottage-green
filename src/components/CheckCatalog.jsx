@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import plus from "../images/icons/plus.svg";
 import dont from "../images/icons/dont.svg";
@@ -8,15 +8,25 @@ import { CSSTransition } from "react-transition-group";
 const CheckCatalog = () => {
   const [data, setCatalog] = useState([]);
   const [transtion, setTransition] = useState([]);
+  const check = useRef();
+  const iconCheck = useRef();
+  const dontButton = useRef();
+  const photoInput = useRef();
   useEffect(() => {
-    axios.get("https://cottage-green.herokuapp.com/catalog/get").then((res) => {
-      setCatalog(res.data);
-      const check = [];
-      res.data.forEach((item) => {
-        check.push({ _id: item._id, status: false });
-      });
-      setTransition(check);
-    });
+    try {
+      axios
+        .get("https://cottage-green.herokuapp.com/catalog/get")
+        .then((res) => {
+          setCatalog(res.data);
+          const check = [];
+          res.data.forEach((item) => {
+            check.push({ _id: item._id, status: false });
+          });
+          setTransition(check);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   useEffect(() => {
     const check = [];
@@ -26,15 +36,21 @@ const CheckCatalog = () => {
     setTransition(check);
   }, [data]);
 
-  const addCotalog = (e) => {
+  const addCotalog = async (e) => {
     e.preventDefault();
 
     let formdata = new FormData();
     formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
     formdata.append("image", e.target[1].files[0], e.target[1].value);
-    axios.post("https://api.imgbb.com/1/upload", formdata).then((response) => {
-      axios
-        .post("https://cottage-green.herokuapp.com/catalog/add", {
+    try {
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formdata
+      );
+
+      const result = await axios.post(
+        "https://cottage-green.herokuapp.com/catalog/add",
+        {
           title: e.target[2].value,
           img: response.data.data.url,
           room: e.target[4].value,
@@ -43,11 +59,13 @@ const CheckCatalog = () => {
           stairs: e.target[7].value,
           price: e.target[3].value,
           desc: e.target[8].value,
-        })
-        .then((res) => {
-          setCatalog([...data, res.data]);
-        });
-    });
+        }
+      );
+
+      setCatalog([...data, result.data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const opacityHouse = ({ target }) => {
@@ -60,67 +78,73 @@ const CheckCatalog = () => {
     setTransition(result);
   };
 
-  const editHouse = (e) => {
+  const editHouse = async (e) => {
     e.preventDefault();
     if (e.target[1].value === "") {
-      axios
-        .post(
-          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
-          {
-            title: e.target[2].value,
-            img: "",
-            room: e.target[4].value,
-            bed: e.target[5].value,
-            people: e.target[6].value,
-            stairs: e.target[7].value,
-            price: e.target[3].value,
-            desc: e.target[8].value,
-          }
-        )
-        .then((res) => {
-          const mass = [];
-          data.forEach((num) => {
-            if (num._id === res.data._id) {
-              mass.push(res.data);
-            } else {
-              mass.push(num);
-            }
-          });
-          setCatalog(mass);
-        });
+    try{
+        const response = await axios.post(
+        `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+        {
+          title: e.target[2].value,
+          img: "",
+          room: e.target[4].value,
+          bed: e.target[5].value,
+          people: e.target[6].value,
+          stairs: e.target[7].value,
+          price: e.target[3].value,
+          desc: e.target[8].value,
+        }
+      );
+
+      const mass = [];
+      data.forEach((num) => {
+        if (num._id === response.data._id) {
+          mass.push(response.data);
+        } else {
+          mass.push(num);
+        }
+      });
+      setCatalog(mass);
+    }catch(error){
+      console.log(error)
+    }
     } else {
       let formdata = new FormData();
       formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
       formdata.append("image", e.target[1].files[0], e.target[1].value);
-      axios
-        .post("https://api.imgbb.com/1/upload", formdata)
-        .then((response) => {
-          axios
-            .post(
-              `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
-              {
-                title: e.target[2].value,
-                img: response.data.data.url,
-                room: e.target[4].value,
-                bed: e.target[5].value,
-                people: e.target[6].value,
-                stairs: e.target[7].value,
-                price: e.target[3].value,
-                desc: e.target[8].value,
-              }
-            )
-            .then((res) => {
-              const mass = [];
-              data.forEach((num) => {
-                if (num._id === res.data._id) {
-                  mass.push(res.data);
-                } else {
-                  mass.push(num);
-                }
-              });
-              setCatalog(mass);
-            });
-        });
+
+      try{
+        const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formdata
+      );
+
+      const result = await axios.post(
+        `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+        {
+          title: e.target[2].value,
+          img: response.data.data.url,
+          room: e.target[4].value,
+          bed: e.target[5].value,
+          people: e.target[6].value,
+          stairs: e.target[7].value,
+          price: e.target[3].value,
+          desc: e.target[8].value,
+        }
+      );
+
+      const mass = [];
+      data.forEach((num) => {
+        if (num._id === result.data._id) {
+          mass.push(result.data);
+        } else {
+          mass.push(num);
+        }
+      });
+      setCatalog(mass);
+      }catch(error){
+        console.log(error)
+      }
     }
   };
 
@@ -135,37 +159,35 @@ const CheckCatalog = () => {
   };
 
   const photoSet = ({ target }) => {
-    const check = document.querySelector(".check-add-photo-back");
-    const iconCheck = document.querySelector(".check-add-photo-icon");
-    const dontButton = document.querySelector(".check-add-photo-dont");
+    dontButton.current.classList.add("active");
 
-    dontButton.classList.add("active");
+    iconCheck.current.classList.add("active");
 
-    iconCheck.classList.add("active");
+    check.current.classList.add("active");
 
-    check.classList.add("active");
-
-    check.src = URL.createObjectURL(target.files[0]);
+    check.current.src = URL.createObjectURL(target.files[0]);
   };
 
   const deletePhoto = ({ target }) => {
-    const dontButton = document.querySelector(".check-add-photo-dont");
-    const check = document.querySelector(".check-add-photo-back");
-    const iconCheck = document.querySelector(".check-add-photo-icon");
-    document.querySelector(".check-add-photo-input").value = "";
+    photoInput.current.value = "";
 
-    iconCheck.classList.remove("active");
-    dontButton.classList.remove("active");
-    check.src = "";
-    check.classList.remove("active");
+    iconCheck.current.classList.remove("active");
+    dontButton.current.classList.remove("active");
+    check.current.src = "";
+    check.current.classList.remove("active");
   };
 
   const deleteHouse = async ({ target }) => {
-    const result = await axios.delete(
+
+    try{
+      const result = await axios.delete(
       `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
     );
     const total = data.filter((num) => result.data._id !== num._id && num);
     setCatalog(total);
+    }catch(error){
+      console.log(error)
+    }
   };
 
   return (
@@ -298,16 +320,19 @@ const CheckCatalog = () => {
                           >
                             <div className="check-add-photo">
                               <img
+                                ref={check}
                                 className="check-add-photo-back"
                                 alt="phot"
                                 src=""
                               />
                               <img
+                                ref={iconCheck}
                                 className="check-add-photo-icon"
                                 src={plus}
                                 alt="plus"
                               />
                               <button
+                                ref={dontButton}
                                 className="check-add-photo-dont"
                                 onClick={deletePhoto}
                               >
@@ -318,6 +343,7 @@ const CheckCatalog = () => {
                                 />
                               </button>
                               <input
+                                ref={photoInput}
                                 type="file"
                                 onInput={photoSet}
                                 className="check-add-photo-input"
