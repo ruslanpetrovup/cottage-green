@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
@@ -10,24 +10,27 @@ const Header = () => {
   const local = useLocation();
   const [loginOn, setLoginOn] = useState(true);
   const [infoUser, setInfoUser] = useState({});
+  const userName = useMemo(() => {
+    return infoUser.name;
+  }, [infoUser]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-     try{
-       axios
-        .get("https://cottage-green.herokuapp.com/auth/verify", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          setLoginOn(true);
-          setInfoUser(res.data.data.total);
-          localStorage.setItem("data", JSON.stringify(res.data.data.total));
-        });
-     }catch(error){
-      console.log(error)
-     }
+      try {
+        axios
+          .get("https://cottage-green.herokuapp.com/auth/verify", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            setLoginOn(true);
+            setInfoUser(res.data.data.total);
+            localStorage.setItem("data", JSON.stringify(res.data.data.total));
+          });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setLoginOn(false);
       setInfoUser({});
@@ -54,39 +57,39 @@ const Header = () => {
     e.preventDefault();
 
     console.dir(e.target[0].value);
-    try{
+    try {
       await axios.post(
-      "https://cottage-green.herokuapp.com/user/registration",
-      {
-        email: e.target[2].value,
-        name: e.target[0].value,
-        secondname: e.target[1].value,
-        password: e.target[3].value,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+        "https://cottage-green.herokuapp.com/user/registration",
+        {
+          email: e.target[2].value,
+          name: e.target[0].value,
+          secondname: e.target[1].value,
+          password: e.target[3].value,
         },
-      }
-    );
-    }catch(error){
-      console.log(error)
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
   };
   const loginUser = async (e) => {
     e.preventDefault();
-    try{
+    try {
       const total = await axios.post(
-      "https://cottage-green.herokuapp.com/user/login",
-      {
-        email: e.target[0].value,
-        password: e.target[1].value,
-      }
-    );
-    localStorage.setItem("token", total.data.data.token);
-    }catch(error){
-      console.log(error)
+        "https://cottage-green.herokuapp.com/user/login",
+        {
+          email: e.target[0].value,
+          password: e.target[1].value,
+        }
+      );
+      localStorage.setItem("token", total.data.data.token);
+    } catch (error) {
+      console.log(error);
     }
     window.location.reload(false);
   };
@@ -145,7 +148,7 @@ const Header = () => {
             ) : (
               <div className="header-sing-login">
                 <Link to="/cabinet" className="header-sing-login-cabinet">
-                  {infoUser.name}
+                  {userName}
                   <svg className="header-sing-login-cabinet-icon">
                     <use href={`${sprite}#settings`}></use>
                   </svg>
