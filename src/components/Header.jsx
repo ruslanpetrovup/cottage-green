@@ -12,7 +12,7 @@ const Header = () => {
   const [infoUser, setInfoUser] = useState({});
   const userName = useMemo(() => {
     return infoUser.name;
-  }, [infoUser]);
+  }, [infoUser.name]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
