@@ -15,18 +15,21 @@ const House = () => {
     setNum(target.src);
   };
 
-  useEffect(() => {
-    window.scrollTo(window.scrollX, 0);
-   try{
-     axios
-      .get(`https://cottage-green.herokuapp.com/catalog/getOne/${id}`)
-      .then((res) => {
-        setData(res.data);
-      });
-   }catch(error){
-    console.log(error)
-   }
-  }, [id]);
+  useEffect(
+    () => async () => {
+      window.scrollTo(window.scrollX, 0);
+      try {
+        const response = await axios.get(
+          `https://cottage-green.herokuapp.com/catalog/getOne/${id}`
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [id]
+  );
 
   return (
     <section className="house">

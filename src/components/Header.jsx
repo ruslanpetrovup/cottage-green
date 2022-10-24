@@ -14,28 +14,35 @@ const Header = () => {
     return infoUser.name;
   }, [infoUser.name]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  useEffect(
+    () => async () => {
+      const token = localStorage.getItem("token");
 
-    if (token) {
-      try {
-        axios
-          .get("https://cottage-green.herokuapp.com/auth/verify", {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            setLoginOn(true);
-            setInfoUser(res.data.data.total);
-            localStorage.setItem("data", JSON.stringify(res.data.data.total));
-          });
-      } catch (error) {
-        console.log(error);
+      if (token) {
+        try {
+          const response = await axios.get(
+            "https://cottage-green.herokuapp.com/auth/verify",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          setLoginOn(true);
+          setInfoUser(response.data.data.total);
+          localStorage.setItem(
+            "data",
+            JSON.stringify(response.data.data.total)
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        setLoginOn(false);
+        setInfoUser({});
       }
-    } else {
-      setLoginOn(false);
-      setInfoUser({});
-    }
-  }, []);
+    },
+    []
+  );
   const exitUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("data");

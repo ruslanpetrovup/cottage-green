@@ -12,22 +12,26 @@ const CheckCatalog = () => {
   const iconCheck = useRef();
   const dontButton = useRef();
   const photoInput = useRef();
-  useEffect(() => {
-    try {
-      axios
-        .get("https://cottage-green.herokuapp.com/catalog/get")
-        .then((res) => {
-          setCatalog(res.data);
-          const check = [];
-          res.data.forEach((item) => {
-            check.push({ _id: item._id, status: false });
-          });
-          setTransition(check);
+  useEffect(
+    () => async () => {
+      try {
+        const response = await axios(
+          "https://cottage-green.herokuapp.com/catalog/get"
+        );
+
+        setCatalog(response.data);
+        const check = [];
+
+        response.data.forEach((item) => {
+          check.push({ _id: item._id, status: false });
         });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+        setTransition(check);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    []
+  );
   useEffect(() => {
     const check = [];
     data.forEach((item) => {
@@ -81,69 +85,69 @@ const CheckCatalog = () => {
   const editHouse = async (e) => {
     e.preventDefault();
     if (e.target[1].value === "") {
-    try{
+      try {
         const response = await axios.post(
-        `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
-        {
-          title: e.target[2].value,
-          img: "",
-          room: e.target[4].value,
-          bed: e.target[5].value,
-          people: e.target[6].value,
-          stairs: e.target[7].value,
-          price: e.target[3].value,
-          desc: e.target[8].value,
-        }
-      );
+          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+          {
+            title: e.target[2].value,
+            img: "",
+            room: e.target[4].value,
+            bed: e.target[5].value,
+            people: e.target[6].value,
+            stairs: e.target[7].value,
+            price: e.target[3].value,
+            desc: e.target[8].value,
+          }
+        );
 
-      const mass = [];
-      data.forEach((num) => {
-        if (num._id === response.data._id) {
-          mass.push(response.data);
-        } else {
-          mass.push(num);
-        }
-      });
-      setCatalog(mass);
-    }catch(error){
-      console.log(error)
-    }
+        const mass = [];
+        data.forEach((num) => {
+          if (num._id === response.data._id) {
+            mass.push(response.data);
+          } else {
+            mass.push(num);
+          }
+        });
+        setCatalog(mass);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       let formdata = new FormData();
       formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
       formdata.append("image", e.target[1].files[0], e.target[1].value);
 
-      try{
+      try {
         const response = await axios.post(
-        "https://api.imgbb.com/1/upload",
-        formdata
-      );
+          "https://api.imgbb.com/1/upload",
+          formdata
+        );
 
-      const result = await axios.post(
-        `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
-        {
-          title: e.target[2].value,
-          img: response.data.data.url,
-          room: e.target[4].value,
-          bed: e.target[5].value,
-          people: e.target[6].value,
-          stairs: e.target[7].value,
-          price: e.target[3].value,
-          desc: e.target[8].value,
-        }
-      );
+        const result = await axios.post(
+          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+          {
+            title: e.target[2].value,
+            img: response.data.data.url,
+            room: e.target[4].value,
+            bed: e.target[5].value,
+            people: e.target[6].value,
+            stairs: e.target[7].value,
+            price: e.target[3].value,
+            desc: e.target[8].value,
+          }
+        );
 
-      const mass = [];
-      data.forEach((num) => {
-        if (num._id === result.data._id) {
-          mass.push(result.data);
-        } else {
-          mass.push(num);
-        }
-      });
-      setCatalog(mass);
-      }catch(error){
-        console.log(error)
+        const mass = [];
+        data.forEach((num) => {
+          if (num._id === result.data._id) {
+            mass.push(result.data);
+          } else {
+            mass.push(num);
+          }
+        });
+        setCatalog(mass);
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -178,15 +182,14 @@ const CheckCatalog = () => {
   };
 
   const deleteHouse = async ({ target }) => {
-
-    try{
+    try {
       const result = await axios.delete(
-      `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
-    );
-    const total = data.filter((num) => result.data._id !== num._id && num);
-    setCatalog(total);
-    }catch(error){
-      console.log(error)
+        `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
+      );
+      const total = data.filter((num) => result.data._id !== num._id && num);
+      setCatalog(total);
+    } catch (error) {
+      console.log(error);
     }
   };
 

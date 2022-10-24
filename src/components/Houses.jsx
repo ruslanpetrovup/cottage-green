@@ -11,28 +11,31 @@ import { TailSpin } from "react-loader-spinner";
 const Houses = () => {
   const [cottages, setData] = useState([]);
   const app = useRef();
-  useEffect(() => {
-    try {
-      axios
-        .get("https://cottage-green.herokuapp.com/catalog/get")
-        .then((res) => {
-          setData(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+  useEffect(
+    () => async () => {
+      try {
+        const response = await axios(
+          "https://cottage-green.herokuapp.com/catalog/get"
+        );
 
-    var typewriter = new Typewriter(app.current, {
-      loop: true,
-    });
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
 
-    typewriter
-      .typeString("- це можливість відпочити від міської метушні")
-      .pauseFor(5500)
-      .deleteAll()
-      .pauseFor(5500)
-      .start();
-  }, []);
+      var typewriter = new Typewriter(app.current, {
+        loop: true,
+      });
+
+      typewriter
+        .typeString("- це можливість відпочити від міської метушні")
+        .pauseFor(5500)
+        .deleteAll()
+        .pauseFor(5500)
+        .start();
+    },
+    []
+  );
 
   return (
     <section className="houses">

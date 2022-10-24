@@ -5,17 +5,20 @@ import axios from "axios";
 const CheckComments = () => {
   const [comment, setComment] = useState([]);
 
-  useEffect(() => {
-    try {
-      axios
-        .get("https://cottage-green.herokuapp.com/comment/get")
-        .then((res) => {
-          setComment(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  useEffect(
+    () => async () => {
+      try {
+        const response = await axios(
+          "https://cottage-green.herokuapp.com/comment/get"
+        );
+
+        setComment(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    []
+  );
 
   const deleteComment = async ({ target }) => {
     try {

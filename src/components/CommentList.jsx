@@ -8,30 +8,33 @@ const CommentList = () => {
   const buttonMessage = useRef();
   const commentDesc = useRef();
 
-  useEffect(() => {
-    try {
-      axios
-        .get("https://cottage-green.herokuapp.com/comment/get")
-        .then((res) => {
-          setComment(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-    const app = commentDesc.current;
-    let typewriter = new Typewriter(app, {
-      loop: true,
-    });
+  useEffect(
+    () => async () => {
+      try {
+        const response = await axios(
+          "https://cottage-green.herokuapp.com/comment/get"
+        );
 
-    typewriter
-      .typeString(
-        "Тут ви можете поділитися своїми емоціями після відпочинку в CottageGreen."
-      )
-      .pauseFor(5500)
-      .deleteAll()
-      .pauseFor(5500)
-      .start();
-  }, []);
+        setComment(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      const app = commentDesc.current;
+      let typewriter = new Typewriter(app, {
+        loop: true,
+      });
+
+      typewriter
+        .typeString(
+          "Тут ви можете поділитися своїми емоціями після відпочинку в CottageGreen."
+        )
+        .pauseFor(5500)
+        .deleteAll()
+        .pauseFor(5500)
+        .start();
+    },
+    []
+  );
 
   const addComment = async (e) => {
     e.preventDefault();
