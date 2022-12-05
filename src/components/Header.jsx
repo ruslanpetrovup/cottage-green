@@ -27,7 +27,7 @@ const Header = () => {
     } else {
       dispatch(fetchToken(JSON.parse(localStorage.getItem("token"))));
     }
-    if (token || JSON.parse(localStorage.getItem("token"))) {
+    if (token || JSON.parse(localStorage.getItem("token") || "")) {
       setLoginOn(true);
     } else {
       setLoginOn(false);
