@@ -9,7 +9,7 @@ const CheckComments = () => {
     () => async () => {
       try {
         const response = await axios(
-          "https://cottage-green.herokuapp.com/comment/get"
+          `${process.env.REACT_APP_SERVER}/comment/get`
         );
 
         setComment(response.data);
@@ -23,7 +23,7 @@ const CheckComments = () => {
   const deleteComment = async ({ target }) => {
     try {
       await axios.delete(
-        `https://cottage-green.herokuapp.com/comment/delete/${target.dataset.id}`
+        `${process.env.REACT_APP_SERVER}/comment/delete/${target.dataset.id}`
       );
 
       const edit = comment.filter((num) => num._id !== target.dataset.id);

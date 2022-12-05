@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import setting from "../images/icons/setting.svg";
 import home from "../images/icons/home.svg";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchToken } from "../store/slices/userSlice";
+
 const Setting = () => {
-  const [data, setData] = useState({});
+  const dispatch = useDispatch();
+  const [data, setData] = useState(useSelector((store) => store.user.data));
   const windowProfile = useRef();
   const windowHouses = useRef();
   const name = useRef();
-
-  useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("data")));
-  }, []);
+  const test123 = useRef();
+  const token = useSelector((store) => store.user.token);
 
   const menuSetting = ({ target }) => {
     const mass = [windowProfile.current, windowHouses.current];
@@ -27,9 +29,9 @@ const Setting = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://cottage-green.herokuapp.com/user/edit-name",
+        `${process.env.REACT_APP_SERVER}/user/edit-name`,
         {
-          token: localStorage.getItem("token"),
+          token: token,
           name: e.target[0].value,
           secondname: e.target[1].value,
         }
@@ -39,27 +41,33 @@ const Setting = () => {
     } catch (error) {
       console.log(error);
     }
-    // localStorage.setItem("data", JSON.stringify(res.data));
-    e.target[0].value = "";
-    window.location.reload(false);
-
+    dispatch(fetchToken(token));
     name.current.innerText = e.target[0].value;
+    e.target[0].value = "";
   };
-  const editAvatar = async (e) => {
+  const editAvatar = async () => {
+    console.log("tes");
+    console.log(test123);
+    const { current } = test123;
     let formdata = new FormData();
     formdata.append("key", "fa617ab98f2d697a62f85df010136e12");
 
-    formdata.append("image", e.target[0].files[0], e.target[0].value);
+    formdata.append("image", current.files[0], current.value);
 
     try {
       const result = await axios.post(
         "https://api.imgbb.com/1/upload",
         formdata
       );
-      await axios.post("https://cottage-green.herokuapp.com/user/edit-name", {
-        token: localStorage.getItem("token"),
-        avatar: result.data.data.url,
-      });
+      axios
+        .post(`${process.env.REACT_APP_SERVER}/user/edit-avatar`, {
+          token: token,
+          avatar: result.data.data.url,
+        })
+        .then(() => {
+          dispatch(fetchToken(token));
+          setData({ ...data, avatar: result.data.data.url });
+        });
     } catch (error) {
       console.log(error);
     }
@@ -128,11 +136,14 @@ const Setting = () => {
                   </button>
                 </form>
                 <div className="setting-work-profile-avatar">
-                  <img
-                    className="setting-work-profile-avatar-img"
-                    src={data.avatar}
-                    alt="avatar"
-                  />
+                  <label>
+                    <input type="file" ref={test123} style={{ opacity: 0 }} />
+                    <img
+                      className="setting-work-profile-avatar-img"
+                      src={data.avatar}
+                      alt="avatar"
+                    />
+                  </label>
                   <button
                     onClick={editAvatar}
                     className="setting-work-profile-avatar-button"

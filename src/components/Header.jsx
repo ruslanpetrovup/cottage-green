@@ -1,52 +1,47 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../images/logo-test.png";
 import close from "../images/icons/close.svg";
 import sprite from "../images/icons/sprite.svg";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchToken,
+  fetchLogin,
+  fetchRegister,
+  userClear,
+} from "../store/slices/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const local = useLocation();
   const [loginOn, setLoginOn] = useState(true);
-  const [infoUser, setInfoUser] = useState({});
-  const userName = useMemo(() => {
-    return infoUser.name;
-  }, [infoUser.name]);
+  const infoUser = useSelector((state) => state.user.data);
+  const token = useSelector((state) => state.user.token);
+  const auth = useSelector((state) => state.user.auth);
+  const userName = infoUser.name;
 
-  useEffect(
-    () => async () => {
-      const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchToken(token));
+    } else {
+      dispatch(fetchToken(JSON.parse(localStorage.getItem("token"))));
+    }
+    if (token || JSON.parse(localStorage.getItem("token"))) {
+      setLoginOn(true);
+    } else {
+      setLoginOn(false);
+    }
+  }, [token]);
 
-      if (token) {
-        try {
-          const response = await axios.get(
-            "https://cottage-green.herokuapp.com/auth/verify",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
+  useEffect(() => {
+    if (auth === "OK") {
+      setWindowLog(false);
+    }
+  }, [auth]);
 
-          setLoginOn(true);
-          setInfoUser(response.data.data.total);
-          localStorage.setItem(
-            "data",
-            JSON.stringify(response.data.data.total)
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        setLoginOn(false);
-        setInfoUser({});
-      }
-    },
-    []
-  );
   const exitUser = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("data");
-    setInfoUser({});
+    dispatch(userClear());
     setLoginOn(false);
     if (local.pathname === "/cabinet") {
       navigate("/");
@@ -63,42 +58,23 @@ const Header = () => {
   const registerUser = async (e) => {
     e.preventDefault();
 
-    console.dir(e.target[0].value);
-    try {
-      await axios.post(
-        "https://cottage-green.herokuapp.com/user/registration",
-        {
-          email: e.target[2].value,
-          name: e.target[0].value,
-          secondname: e.target[1].value,
-          password: e.target[3].value,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(
+      fetchRegister({
+        email: e.target[2].value,
+        name: e.target[0].value,
+        secondname: e.target[1].value,
+        password: e.target[3].value,
+      })
+    );
   };
   const loginUser = async (e) => {
     e.preventDefault();
-    try {
-      const total = await axios.post(
-        "https://cottage-green.herokuapp.com/user/login",
-        {
-          email: e.target[0].value,
-          password: e.target[1].value,
-        }
-      );
-      localStorage.setItem("token", total.data.data.token);
-    } catch (error) {
-      console.log(error);
-    }
-    window.location.reload(false);
+    dispatch(
+      fetchLogin({
+        email: e.target[0].value,
+        password: e.target[1].value,
+      })
+    );
   };
   return (
     <header className="header">

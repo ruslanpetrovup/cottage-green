@@ -20,7 +20,7 @@ const House = () => {
       window.scrollTo(window.scrollX, 0);
       try {
         const response = await axios.get(
-          `https://cottage-green.herokuapp.com/catalog/getOne/${id}`
+          `${process.env.REACT_APP_SERVER}/catalog/getOne/${id}`
         );
 
         setData(response.data);

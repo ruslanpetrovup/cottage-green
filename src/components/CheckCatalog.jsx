@@ -15,9 +15,7 @@ const CheckCatalog = () => {
   useEffect(
     () => async () => {
       try {
-        const response = await axios(
-          "https://cottage-green.herokuapp.com/catalog/get"
-        );
+        const response = await axios(`${process.env.REACT_APP_SERVER}/catalog/get`);
 
         setCatalog(response.data);
         const check = [];
@@ -52,19 +50,16 @@ const CheckCatalog = () => {
         formdata
       );
 
-      const result = await axios.post(
-        "https://cottage-green.herokuapp.com/catalog/add",
-        {
-          title: e.target[2].value,
-          img: response.data.data.url,
-          room: e.target[4].value,
-          bed: e.target[5].value,
-          people: e.target[6].value,
-          stairs: e.target[7].value,
-          price: e.target[3].value,
-          desc: e.target[8].value,
-        }
-      );
+      const result = await axios.post(`${process.env.REACT_APP_SERVER}/catalog/add`, {
+        title: e.target[2].value,
+        img: response.data.data.url,
+        room: e.target[4].value,
+        bed: e.target[5].value,
+        people: e.target[6].value,
+        stairs: e.target[7].value,
+        price: e.target[3].value,
+        desc: e.target[8].value,
+      });
 
       setCatalog([...data, result.data]);
     } catch (error) {
@@ -87,7 +82,7 @@ const CheckCatalog = () => {
     if (e.target[1].value === "") {
       try {
         const response = await axios.post(
-          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+          `${process.env.REACT_APP_SERVER}/catalog/edit/${e.target.dataset.key}`,
           {
             title: e.target[2].value,
             img: "",
@@ -124,7 +119,7 @@ const CheckCatalog = () => {
         );
 
         const result = await axios.post(
-          `https://cottage-green.herokuapp.com/catalog/edit/${e.target.dataset.key}`,
+          `${process.env.REACT_APP_SERVER}/catalog/edit/${e.target.dataset.key}`,
           {
             title: e.target[2].value,
             img: response.data.data.url,
@@ -184,7 +179,7 @@ const CheckCatalog = () => {
   const deleteHouse = async ({ target }) => {
     try {
       const result = await axios.delete(
-        `https://cottage-green.herokuapp.com/catalog/delete/${target.dataset.key}`
+        `${process.env.SERVER}/catalog/delete/${target.dataset.key}`
       );
       const total = data.filter((num) => result.data._id !== num._id && num);
       setCatalog(total);

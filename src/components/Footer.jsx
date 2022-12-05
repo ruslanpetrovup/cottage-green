@@ -41,6 +41,11 @@ const Footer = () => {
                   Контакти
                 </Link>
               </li>
+              <li className="footer-item">
+                <Link to="/admin" className="footer-item-link">
+                  Admin
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="footer-author">

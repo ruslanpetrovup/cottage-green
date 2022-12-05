@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import room from "../images/icons/rooms.svg";
 import bed from "../images/icons/bed.svg";
@@ -7,35 +6,27 @@ import people from "../images/icons/people.svg";
 import stairs from "../images/icons/stairs.svg";
 import Typewriter from "typewriter-effect/dist/core";
 import { TailSpin } from "react-loader-spinner";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCatalog } from "../store/slices/cottageSlice";
 
 const Houses = () => {
-  const [cottages, setData] = useState([]);
+  const dispatch = useDispatch();
+  const cottages = useSelector((state) => state.catalog.catalog);
   const app = useRef();
-  useEffect(
-    () => async () => {
-      try {
-        const response = await axios(
-          "https://cottage-green.herokuapp.com/catalog/get"
-        );
+  useEffect(() => {
+    dispatch(fetchCatalog());
 
-        setData(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+    var typewriter = new Typewriter(app.current, {
+      loop: true,
+    });
 
-      var typewriter = new Typewriter(app.current, {
-        loop: true,
-      });
-
-      typewriter
-        .typeString("- це можливість відпочити від міської метушні")
-        .pauseFor(5500)
-        .deleteAll()
-        .pauseFor(5500)
-        .start();
-    },
-    []
-  );
+    typewriter
+      .typeString("- це можливість відпочити від міської метушні")
+      .pauseFor(5500)
+      .deleteAll()
+      .pauseFor(5500)
+      .start();
+  }, []);
 
   return (
     <section className="houses">

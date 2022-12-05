@@ -1,20 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Typewriter from "typewriter-effect/dist/core";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 const CommentList = () => {
   const [comment, setComment] = useState([]);
   const buttonMessage = useRef();
   const commentDesc = useRef();
+  const user = useSelector((state) => state.user.data);
 
   useEffect(
     () => async () => {
       try {
         const response = await axios(
-          "https://cottage-green.herokuapp.com/comment/get"
+          `${process.env.REACT_APP_SERVER}/comment/get`
         );
-
         setComment(response.data);
       } catch (error) {
         console.log(error);
@@ -38,7 +40,8 @@ const CommentList = () => {
 
   const addComment = async (e) => {
     e.preventDefault();
-    if (localStorage.getItem("data") === null) {
+
+    if (Object.keys(user).length === 0) {
       buttonMessage.current.classList.add("active");
       setTimeout(() => {
         buttonMessage.current.classList.remove("active");
@@ -46,10 +49,9 @@ const CommentList = () => {
       return;
     }
     if (e.target[0].value.length < 2) return;
-    const user = JSON.parse(localStorage.getItem("data"));
     try {
       const result = await axios.post(
-        "https://cottage-green.herokuapp.com/comment/add",
+        `${process.env.REACT_APP_SERVER}/comment/add`,
         {
           avatar: user.avatar,
           name: user.name,
