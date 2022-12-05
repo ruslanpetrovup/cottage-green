@@ -16,13 +16,12 @@ const Header = () => {
   const navigate = useNavigate();
   const local = useLocation();
   const [loginOn, setLoginOn] = useState(true);
-  const infoUser = useSelector((state) => state.user.data);
   const token = useSelector((state) => state.user.token);
   const auth = useSelector((state) => state.user.auth);
   const userName = useSelector((state) => state.user.data.name);
 
-  useEffect(async () => {
-    const tokenJSON = await JSON.parse(localStorage.getItem("token"));
+  useEffect(() => {
+    const tokenJSON = JSON.parse(localStorage.getItem("token"));
     if (token) {
       dispatch(fetchToken(token));
     } else {
