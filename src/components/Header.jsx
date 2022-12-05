@@ -19,7 +19,7 @@ const Header = () => {
   const infoUser = useSelector((state) => state.user.data);
   const token = useSelector((state) => state.user.token);
   const auth = useSelector((state) => state.user.auth);
-  const userName = infoUser.name;
+  const userName = useSelector((state) => state.user.data.name);
 
   useEffect(() => {
     if (token) {
