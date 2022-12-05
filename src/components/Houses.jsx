@@ -14,7 +14,7 @@ const Houses = () => {
   const cottages = useSelector((state) => state.catalog.catalog);
   const app = useRef();
   useEffect(() => {
-    dispatch(fetchCatalog());
+    dispatch(fetchCatalog);
 
     var typewriter = new Typewriter(app.current, {
       loop: true,
