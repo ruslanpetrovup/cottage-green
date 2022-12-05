@@ -59,6 +59,9 @@ export const userSlice = createSlice({
       state.auth = "";
       localStorage.removeItem("token");
     },
+    setToken: (state) => {
+      state.token = JSON.parse(localStorage.getItem("token"));
+    },
   },
   extraReducers: {
     // Auth
@@ -85,6 +88,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { userClear } = userSlice.actions;
+export const { userClear, setToken } = userSlice.actions;
 
 export default userSlice.reducer;

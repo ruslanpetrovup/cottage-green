@@ -9,6 +9,7 @@ import {
   fetchLogin,
   fetchRegister,
   userClear,
+  setToken,
 } from "../store/slices/userSlice";
 
 const Header = () => {
@@ -21,6 +22,7 @@ const Header = () => {
   const userName = useSelector((state) => state.user.data.name);
 
   useEffect(() => {
+    dispatch(setToken());
     const tokenJSON = JSON.parse(localStorage.getItem("token"));
     if (token) {
       dispatch(fetchToken(token));
