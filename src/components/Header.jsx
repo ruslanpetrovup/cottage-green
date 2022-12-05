@@ -21,13 +21,15 @@ const Header = () => {
   const auth = useSelector((state) => state.user.auth);
   const userName = useSelector((state) => state.user.data.name);
 
-  useEffect(() => {
+  useEffect(async () => {
+    const tokenJSON = await JSON.parse(localStorage.getItem("token"));
     if (token) {
       dispatch(fetchToken(token));
     } else {
-      dispatch(fetchToken(localStorage.getItem("token")));
+      dispatch(fetchToken(tokenJSON));
     }
-    if (token || localStorage.getItem("token")) {
+
+    if (token || tokenJSON) {
       setLoginOn(true);
     } else {
       setLoginOn(false);
